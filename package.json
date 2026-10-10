@@ -2,7 +2,11 @@
   "name": "rokid-personal-ai-v2-reference",
   "private": true,
   "type": "module",
-  "scripts": { "build:reader": "node scripts/build-reader.mjs" },
+  "scripts": {
+    "build:github": "node scripts/build-github-readme.mjs",
+    "build:reader": "node scripts/build-reader.mjs",
+    "build:docs": "npm run build:github && npm run build:reader"
+  },
   "devDependencies": { "marked": "17.0.5" },
   "engines": { "node": ">=20" }
 }

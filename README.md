@@ -1,5 +1,7 @@
 # 私のAI V2
 
+> **本文を読む方へ** [閲覧用ページ](https://ksuzukigh.github.io/rokid-personal-ai-v2/)で全資料を読めます。以下の説明リンクも、各資料の本文が直接開く閲覧用ページへつながります。
+
 **眼鏡から、いつものAIとの会話と仕事を続ける。**
 
 「私のAI」は、Rokid AI Glasses RV101を、Macで普段使っているCodexの会話への音声の入口にする、鈴木啓一の個人開発プロジェクトです。
@@ -17,13 +19,13 @@
 - Webや自分の資料を調べ、必要なら確認してから文書やスライドを作ってもらう。
 - AIからの質問に声で答え、途中経過と結果を眼鏡で読む。
 
-上記は使い方を説明するための例です。実際に確認した操作と条件は[検証範囲](docs/VALIDATION.md)にまとめています。眼鏡を閉じた後の通知や、あらゆるスキル・変更操作の動作を保証するものではありません。
+上記は使い方を説明するための例です。実際に確認した操作と条件は[検証範囲](https://ksuzukigh.github.io/rokid-personal-ai-v2/VALIDATION.html)にまとめています。眼鏡を閉じた後の通知や、あらゆるスキル・変更操作の動作を保証するものではありません。
 
 ## なぜ作ったか
 
 AIとの相談では、直前の話だけでなく、途中まで進めた仕事、自分の資料、普段の道具が大切です。眼鏡のために毎回別の会話を始めると、その文脈を引き継ぐ手間が生じます。
 
-V2では、Macの普段の会話を実際の作業場所として使います。眼鏡には音声の入口と表示を任せ、受付AIには会話先の判断を、選ばれたMac会話には調査や文書作業を任せます。[コンセプトと設計の理由](docs/CONCEPT.md)
+V2では、Macの普段の会話を実際の作業場所として使います。眼鏡には音声の入口と表示を任せ、受付AIには会話先の判断を、選ばれたMac会話には調査や文書作業を任せます。[コンセプトと設計の理由](https://ksuzukigh.github.io/rokid-personal-ai-v2/CONCEPT.html)
 
 ## V1から何が変わったか
 
@@ -42,21 +44,21 @@ V1は開発の前段階を理解する資料として残しています。[V1と
 
 | 知りたいこと | 資料 |
 | --- | --- |
-| どんな体験になるか | [会話と操作の例](docs/EXPERIENCE.md) |
-| なぜこの設計か | [コンセプト](docs/CONCEPT.md) |
-| 各部品がどうつながるか | [システム構成](docs/ARCHITECTURE.md) |
-| 自分でも作ってみたい | [再現の手引き](docs/BUILD_GUIDE.md) |
-| 何を実装すればよいか | [要求仕様とデータ例](docs/REFERENCE_SPEC.md) |
-| AIと相談しながら作りたい | [AIに渡す開発依頼](docs/AI_BUILD_PROMPT.md) |
-| 認証・録音・確認の扱い | [安全の設計](docs/SAFETY.md) |
-| どこまで実機確認したか | [検証範囲と制約](docs/VALIDATION.md) |
-| 公式資料を読みたい | [参照資料](docs/REFERENCES.md) |
+| どんな体験になるか | [会話と操作の例](https://ksuzukigh.github.io/rokid-personal-ai-v2/EXPERIENCE.html) |
+| なぜこの設計か | [コンセプト](https://ksuzukigh.github.io/rokid-personal-ai-v2/CONCEPT.html) |
+| 各部品がどうつながるか | [システム構成](https://ksuzukigh.github.io/rokid-personal-ai-v2/ARCHITECTURE.html) |
+| 自分でも作ってみたい | [再現の手引き](https://ksuzukigh.github.io/rokid-personal-ai-v2/BUILD_GUIDE.html) |
+| 何を実装すればよいか | [要求仕様とデータ例](https://ksuzukigh.github.io/rokid-personal-ai-v2/REFERENCE_SPEC.html) |
+| AIと相談しながら作りたい | [AIに渡す開発依頼](https://ksuzukigh.github.io/rokid-personal-ai-v2/AI_BUILD_PROMPT.html) |
+| 認証・録音・確認の扱い | [安全の設計](https://ksuzukigh.github.io/rokid-personal-ai-v2/SAFETY.html) |
+| どこまで実機確認したか | [検証範囲と制約](https://ksuzukigh.github.io/rokid-personal-ai-v2/VALIDATION.html) |
+| 公式資料を読みたい | [参照資料](https://ksuzukigh.github.io/rokid-personal-ai-v2/REFERENCES.html) |
 
 ## 自分の環境で作るには
 
 RV101のYodaOS・AIUI、Macの常設サービス、音声の文字起こし、Codexとの連携、認証付きの通信経路を組み合わせます。ObsidianやGoogle Driveは必要に応じて接続します。
 
-開発経験がある方、またはAIと相談しながら実装と検証を進められる方を想定しています。公開資料をダウンロードするだけでは動きません。特に、既存のデスクトップ会話への接続は利用環境に合わせた調査が必要です。まずMac内で専用のテスト会話を作り、文字だけの往復から進める方法を[再現の手引き](docs/BUILD_GUIDE.md)で説明しています。
+開発経験がある方、またはAIと相談しながら実装と検証を進められる方を想定しています。公開資料をダウンロードするだけでは動きません。特に、既存のデスクトップ会話への接続は利用環境に合わせた調査が必要です。まずMac内で専用のテスト会話を作り、文字だけの往復から進める方法を[再現の手引き](https://ksuzukigh.github.io/rokid-personal-ai-v2/BUILD_GUIDE.html)で説明しています。
 
 実働版の基準は2026年9月26日に実機確認を終えた個人環境です。公開資料の初版は2026年10月10日です。他の人の環境での通し再現は確認していません。
 
@@ -72,4 +74,4 @@ RV101のYodaOS・AIUI、Macの常設サービス、音声の文字起こし、Co
 
 公開資料と図、説明用の例は[MIT License](LICENSE)です。Rokid、OpenAIなどの製品・公式資料の権利は各権利者に帰属します。個人による参考公開であり、各社の公式製品や公式連携ではありません。
 
-[変更履歴](CHANGELOG.md)
+[変更履歴](https://ksuzukigh.github.io/rokid-personal-ai-v2/CHANGELOG.html)

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>V1とV2の関係 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
+<link rel="stylesheet" href="/rokid-personal-ai-v2/assets/reader.css"></head>
+<body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
+<a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
+</div></header><main id="content"><article><h1 id="v1とv2の関係">V1とV2の関係</h1>
+<p><a href="https://github.com/ksuzukigh/rokid-personal-ai">V1の公開リポジトリ</a>は、眼鏡からMacのAIへ話しかける仕組みと、その構成を読むための参考コードを残しています。V2はその発展として、Macの普段の会話と仕事を眼鏡から続ける設計を紹介します。</p>
+<h2 id="残す理由">残す理由</h2>
+<p>V1には、音声をMacへ送って文字化する、返事を眼鏡へ戻す、確認後に限られた保存・編集を実行する、という土台があります。V2が何を引き継ぎ、何を変えたかを理解する資料になります。</p>
+<p>V1の記事やリンクから来た人も、当時の説明を読めるよう、既存リポジトリとURLを残します。V2は別リポジトリにし、両者から相互に案内します。</p>
+<h2 id="v2で変えた中心部分">V2で変えた中心部分</h2>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>V1</th>
+<th>V2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>会話の続き先</td>
+<td>眼鏡向けの専用会話処理</td>
+<td>Macの通常の会話</td>
+</tr>
+<tr>
+<td>会話の選択</td>
+<td>専用の会話の中で継続</td>
+<td>現在の続き、別の会話、新しい会話を自然に判断</td>
+</tr>
+<tr>
+<td>調査・文書作業</td>
+<td>専用の処理と制限された操作</td>
+<td>Mac会話が持つ道具・スキルを使う</td>
+</tr>
+<tr>
+<td>受付の役割</td>
+<td>眼鏡向けの処理をまとめる</td>
+<td>意味理解と会話先の提案。実作業は担当しない</td>
+</tr>
+<tr>
+<td>表示</td>
+<td>音声往復と回答を中心に構成</td>
+<td>実会話名、実モデル、途中経過、最終回答、Mac側の新質問を共有</td>
+</tr>
+</tbody></table>
+</div><p>V1にも調査と保存・編集機能があります。「V1は質問だけ、V2は作業もできる」という区分ではありません。</p>
+<h2 id="コードを混ぜない">コードを混ぜない</h2>
+<p>V1のコードはV1の参考実装です。V2の資料に書かれた会話接続や端末登録が、V1のコードへ実装済みであるとは限りません。</p>
+<p>V2の公開資料には、個人用実装のソースやGit履歴を持ち込んでいません。説明用の仕様とデータ例から、自分の環境に合った部品を組み立てます。V1の制限や操作文言を、V2の現行仕様として流用しないようにしてください。</p>
+<p><a href="/rokid-personal-ai-v2/CONCEPT.html">V2のコンセプト</a> · <a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
+</article>
+<details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
+<li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">会話と操作の例</a></li>
+<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">システム構成</a></li>
+<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html" aria-current="page">V1とV2の関係</a></li>
+<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様とデータ例</a></li>
+<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIと一緒に作るための開発依頼</a></li>
+<li><a href="/rokid-personal-ai-v2/SAFETY.html">認証・録音・実行確認の設計</a></li>
+<li><a href="/rokid-personal-ai-v2/VALIDATION.html">実機確認の範囲と制約</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a></li></ul></nav></details>
+</main><footer>鈴木啓一 / Keiichi Suzuki · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/docs/V1_AND_V2.md">この文書の元ファイル</a> · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/LICENSE">MIT License</a></footer></body></html>

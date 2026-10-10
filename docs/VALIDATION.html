@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>実機確認の範囲と制約 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
+<link rel="stylesheet" href="/rokid-personal-ai-v2/assets/reader.css"></head>
+<body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
+<a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
+</div></header><main id="content"><article><h1 id="実機で確認した範囲と制約">実機で確認した範囲と制約</h1>
+<p>以下は、2026年9月26日までに確認した、作者の個人用V2の記録を要約したものです。対象はRokid AI Glasses RV101と作者のMac環境、Agent版0.36.13までです。公開資料の初版は2026年10月10日です。</p>
+<p>このリポジトリは資料公開です。ここに実働版のアプリは含まれず、別の人の環境での再現成功を確認したものでもありません。私用版の合格と公開資料の検査を区別します。</p>
+<h2 id="確認した体験">確認した体験</h2>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>確認した範囲</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>既存会話の継続</td>
+<td>自然な発話から実在するMac会話を選び、返事をRV101で確認</td>
+</tr>
+<tr>
+<td>新しい会話</td>
+<td>送信先の提案を確認し、新規Mac会話の最初の返事をRV101で確認</td>
+</tr>
+<tr>
+<td>実会話名の表示</td>
+<td>Macが選んだ送信先名を眼鏡で確認</td>
+</tr>
+<tr>
+<td>途中経過と最終回答</td>
+<td>自動更新、同じ本文の再描画抑止、最終回答への自動切替</td>
+</tr>
+<tr>
+<td>モデル表示と切替</td>
+<td>Mac会話の実モデルを版付きで表示。使用中モデルと明示した標準を分離</td>
+</tr>
+<tr>
+<td>Obsidianの読み書き</td>
+<td>読み取り、確認後の新規文書、追記、既存文書の編集。本文と一件性を読み戻し</td>
+</tr>
+<tr>
+<td>Google Driveの利用</td>
+<td>接続・検索、確認後のDocs作成・追記、Sheetsの特定セル更新。実結果を読み戻し</td>
+</tr>
+<tr>
+<td>スキルの実行</td>
+<td>音声依頼からWeb調査、Obsidian新規文書、Googleスライド作成を一巡</td>
+</tr>
+<tr>
+<td>Macからの追加入力</td>
+<td>Rokid起点の処理中の追加コメントが同じ作業へ反映され、最終回答が戻る</td>
+</tr>
+<tr>
+<td>古い質問への返答</td>
+<td>WebやMacで会話が進んだ後の音声を送信せず、最新回答を表示</td>
+</tr>
+<tr>
+<td>最新質問への返答</td>
+<td>眼鏡に表示した質問への音声返答を、同じMac会話へ1回送信</td>
+</tr>
+<tr>
+<td>新しい質問の自動表示</td>
+<td>眼鏡を開いたまま、Mac側の新質問が会話へ追加表示されたことを本人が確認</td>
+</tr>
+<tr>
+<td>通信切断からの回復</td>
+<td>実音声受付後に通信を1回切断。同じ依頼を二重送信せず回復し、返事を本人が確認</td>
+</tr>
+<tr>
+<td>再起動後の復旧</td>
+<td>Macの常設受付の自動起動と保存状態、Mac・RV101再起動後の会話復旧</td>
+</tr>
+<tr>
+<td>終了後</td>
+<td>原音・一時音声が残らず、短命な接続が終了したことを確認</td>
+</tr>
+</tbody></table>
+</div><p>新質問の自動表示は、閉じた眼鏡への自動通知の確認ではありません。通信回復の合格は、すべての切断タイミングやネットワーク条件を網羅するものではありません。モデルやサービスの利用範囲も、この個人環境の条件によります。</p>
+<h2 id="合格とする証拠">合格とする証拠</h2>
+<p>実声、本人の画面確認、Macの送信記録、成果物の独立した読戻し、後片付けを組み合わせています。模擬テストやMacだけの合格を、眼鏡の実音声・実表示の合格に置き換えていません。</p>
+<p>実験用の音声、私的会話、文書本文、端末ID、接続先、認証情報を含むため、生の検証ログは公開していません。上表は作者の検証記録の要約であり、第三者による認証や保証ではありません。</p>
+<h2 id="使う上での制約">使う上での制約</h2>
+<ul>
+<li>Macがログインして必要な受付と通信が動いていることが前提です。</li>
+<li>眼鏡の小さな画面では長い本文や複雑な確認が読みにくいため、本人用WebやMacも使います。</li>
+<li>音声認識は聞き違い、無音、周囲の声を考慮する必要があります。</li>
+<li>Codexの接続、モデル、道具・スキル、Google Driveなどは、利用者のアカウントと権限に依存します。</li>
+<li>既存デスクトップ会話への接続部には、アプリやバージョンへの依存があります。</li>
+</ul>
+<h2 id="確認していないこと">確認していないこと</h2>
+<ul>
+<li>他の利用者による通し再現、別アカウントでの同じ接続。</li>
+<li>RV203などRV101以外の機種、Windows・Linux・別のMac構成での同等動作。</li>
+<li>すべてのスキル、送信・公開・共有・削除・購入・予定登録など、全種類の実変更。</li>
+<li>閉じた眼鏡への通知、Pixel Watchの通知・操作。</li>
+<li>すべての通信断、休止、再起動、同時更新の組合せ。</li>
+<li>端末の秘密保管の耐タンパー性、長期の互換性、電池への影響。</li>
+</ul>
+<p>構想段階にあった通知や記憶機能を、今回のV2完成範囲に含めて紹介していません。</p>
+<h2 id="再現時の記録例">再現時の記録例</h2>
+<pre><code class="language-text">確認日：
+端末・OS・自作Agent版：
+Mac・Codex・接続部の版：
+試した体験と条件：
+模擬／Mac／実機のどれか：
+入力と表示、実会話先、送信回数：
+実変更の対象、確認、読戻し：
+原音・一時音声・短命接続の終了：
+合格したこと、失敗したこと、未確認：
+</code></pre>
+<p><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
+</article>
+<details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
+<li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">会話と操作の例</a></li>
+<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">システム構成</a></li>
+<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の関係</a></li>
+<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様とデータ例</a></li>
+<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIと一緒に作るための開発依頼</a></li>
+<li><a href="/rokid-personal-ai-v2/SAFETY.html">認証・録音・実行確認の設計</a></li>
+<li><a href="/rokid-personal-ai-v2/VALIDATION.html" aria-current="page">実機確認の範囲と制約</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a></li></ul></nav></details>
+</main><footer>鈴木啓一 / Keiichi Suzuki · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/docs/VALIDATION.md">この文書の元ファイル</a> · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/LICENSE">MIT License</a></footer></body></html>

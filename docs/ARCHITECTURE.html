@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>システム構成 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
+<link rel="stylesheet" href="/rokid-personal-ai-v2/assets/reader.css"></head>
+<body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
+<a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
+</div></header><main id="content"><article><h1 id="システム構成">システム構成</h1>
+<p>V2の中心は、眼鏡とMacの通常の会話をつなぐことです。認証、文字起こし、会話先の判断、送信、結果の表示を分け、実作業はMac会話が担当します。</p>
+<p><img src="/rokid-personal-ai-v2/images/system-overview.svg" alt="私のAI V2の構成図" loading="lazy"></p>
+<h2 id="部品ごとの役割">部品ごとの役割</h2>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>部品</th>
+<th>担当</th>
+<th>担当しないこと</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RV101のAIUI Agent</td>
+<td>録音開始・終了、音声送信、状態・会話名・返事の表示</td>
+<td>ファイル編集や資料作成の実処理</td>
+</tr>
+<tr>
+<td>通信経路</td>
+<td>固定HTTPS名からMacの必要な受付へ届ける</td>
+<td>AIの判断や、アプリ利用者の本人確認の代替</td>
+</tr>
+<tr>
+<td>Mac受付サービス</td>
+<td>登録端末の照合、短命な接続、依頼と表示状態の保持</td>
+<td>眼鏡から指定された任意の会話IDを無条件に採用すること</td>
+</tr>
+<tr>
+<td>WhisperとVAD</td>
+<td>Mac内で発話区間を確認し、音声を文字へ変換</td>
+<td>会話先の判断、背景話者の完全な分離</td>
+</tr>
+<tr>
+<td>受付AI</td>
+<td>元の発言と文脈から会話先を提案、必要なら聞き返す</td>
+<td>ファイル操作、スキル実行、権限付与</td>
+</tr>
+<tr>
+<td>会話への接続部</td>
+<td>実会話先を照合し、元の発言を送り、進捗と結果を読む</td>
+<td>AIの言い換えから勝手に別の依頼を作ること</td>
+</tr>
+<tr>
+<td>MacのCodex会話</td>
+<td>履歴、作業場所、利用可能な道具・スキルで調査や作業</td>
+<td>会話先の選択だけを担当する受付AIへの権限委譲</td>
+</tr>
+<tr>
+<td>本人用Web</td>
+<td>長い本文や確認内容を補助的に読む</td>
+<td>利用前に必ず操作する作業選択メニュー</td>
+</tr>
+</tbody></table>
+</div><h2 id="依頼から結果まで">依頼から結果まで</h2>
+<ol>
+<li>利用者の操作で録音し、認証済みの接続から音声をMacへ届ける。</li>
+<li>Macが文字化し、原音と一時音声を削除する。</li>
+<li>受付AIが現在・別・新規の会話を判断する。</li>
+<li>別会話・新規会話では、Macが実際に解決した会話名を表示して確認する。</li>
+<li>会話と依頼を固定し、元の発言を1回だけ送る。</li>
+<li>Mac会話の途中経過と最終回答を、同じ依頼に結び付けて読む。</li>
+<li>変化した本文だけを眼鏡へ表示する。聞き返しへの返答も同じMac会話へ戻す。</li>
+</ol>
+<h2 id="端末登録とその回の接続">端末登録とその回の接続</h2>
+<p>初回の本人確認付き登録と、その後の会話接続を分けています。生成したAgentに有効な秘密を埋め込まず、登録後の実行時に端末へ渡す設計です。</p>
+<p>登録済み端末でも、会話に使う接続は短命にします。Macが期限と登録解除を管理します。端末保存のAPIがあることと、秘密を安全に保管できることは同義ではありません。<a href="/rokid-personal-ai-v2/SAFETY.html">安全の設計</a></p>
+<h2 id="通信経路">通信経路</h2>
+<p>個人環境では、専用の固定HTTPS名とCloudflare Tunnelを使っています。Macから外向きにトンネルを張り、ローカルの受付へ届けます。これはCloudflareの<a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/">公式の接続モデル</a>に基づく構成です。</p>
+<p>トンネルだけで、利用者の認証や操作権限が決まるわけではありません。眼鏡の登録、短命な接続、本人用Webの認証、公開する経路の限定を別に設計します。常設Macの待受けと、会話ごとの接続を区別します。</p>
+<h2 id="codex接続の重要な違い">Codex接続の重要な違い</h2>
+<p>Codex App Serverには、会話を作成・再開し、入力を送り、イベントを読むための公式資料があります。<a href="https://learn.chatgpt.com/docs/app-server">OpenAI公式資料</a></p>
+<p>個人環境のV2では、新規会話の初回と、既存デスクトップ会話の続きで接続方法を分けています。初回は会話を作成したApp Server接続で始め、既存会話にはデスクトップ側のキュー経路を使います。</p>
+<p>確認した公式ページには、この既存会話用キューの同じ呼び出し仕様は掲載されていません。一般のApp Serverクライアントを作るだけで、開いているデスクトップ会話へ同じように投入できるとは案内していません。ここは利用中のアプリとバージョンで調査する接続部です。会話履歴ファイルへの直接追記で代用しないでください。</p>
+<p>独立したテスト会話を使う最小構成と、デスクトップ会話を持ち出す完成像を、<a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a>で分けています。</p>
+<h2 id="保存する状態">保存する状態</h2>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>状態</th>
+<th>用途</th>
+<th>保存上の扱い</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>端末登録</td>
+<td>接続を許可する端末の管理</td>
+<td>秘密を公開物に入れず、解除できるようにする</td>
+</tr>
+<tr>
+<td>会話先の対応</td>
+<td>Macの会話と眼鏡の表示を結ぶ</td>
+<td>会話IDは内部で保持し、画面には実会話名を出す</td>
+</tr>
+<tr>
+<td>確認待ちの提案</td>
+<td>元の依頼と実際の送信先を保持</td>
+<td>誤認識や聞き直しで勝手に失わない</td>
+</tr>
+<tr>
+<td>依頼の送信意図と結果</td>
+<td>再起動や通信断での再送を避ける</td>
+<td>依頼ID・本文・実会話先を対応させる</td>
+</tr>
+<tr>
+<td>表示した回答の識別情報</td>
+<td>古い質問への返答を防ぐ</td>
+<td>回答ID、ターン、本文の識別を次の返答へ結ぶ</td>
+</tr>
+<tr>
+<td>原音と変換用音声</td>
+<td>文字起こし</td>
+<td>処理後に削除し、通常の会話履歴とは分ける</td>
+</tr>
+</tbody></table>
+</div><p><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様とデータ例</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
+</article>
+<details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
+<li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">会話と操作の例</a></li>
+<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html" aria-current="page">システム構成</a></li>
+<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の関係</a></li>
+<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様とデータ例</a></li>
+<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIと一緒に作るための開発依頼</a></li>
+<li><a href="/rokid-personal-ai-v2/SAFETY.html">認証・録音・実行確認の設計</a></li>
+<li><a href="/rokid-personal-ai-v2/VALIDATION.html">実機確認の範囲と制約</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a></li></ul></nav></details>
+</main><footer>鈴木啓一 / Keiichi Suzuki · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/docs/ARCHITECTURE.md">この文書の元ファイル</a> · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/LICENSE">MIT License</a></footer></body></html>

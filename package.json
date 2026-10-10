@@ -1,0 +1,8 @@
+{
+  "name": "rokid-personal-ai-v2-reference",
+  "private": true,
+  "type": "module",
+  "scripts": { "build:reader": "node scripts/build-reader.mjs" },
+  "devDependencies": { "marked": "17.0.5" },
+  "engines": { "node": ">=20" }
+}

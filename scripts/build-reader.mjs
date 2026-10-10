@@ -11,7 +11,7 @@ const github = 'https://github.com/ksuzukigh/rokid-personal-ai-v2';
 const pages = [
   ['INTRODUCTION.md', 'index.html', '私のAI V2'],
   ['docs/CONCEPT.md', 'CONCEPT.html', 'コンセプトと設計の理由'],
-  ['docs/EXPERIENCE.md', 'EXPERIENCE.html', '会話と操作の例'],
+  ['docs/EXPERIENCE.md', 'EXPERIENCE.html', 'チャットとタップの例'],
   ['docs/ARCHITECTURE.md', 'ARCHITECTURE.html', '仕組みをやさしく説明'],
   ['docs/V1_AND_V2.md', 'V1_AND_V2.html', 'V1とV2の違い'],
   ['docs/BUILD_GUIDE.md', 'BUILD_GUIDE.html', '自分用に作るための進め方'],

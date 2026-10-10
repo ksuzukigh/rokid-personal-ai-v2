@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="850" viewBox="0 0 1280 850" role="img" aria-labelledby="title desc">
   <title id="title">眼鏡とMacの役割</title>
-  <desc id="desc">眼鏡で話した音声をMacで文字にする。受付役のAIが相談の続き先を案内し、MacのAIが調査や文書作成を進める。質問、途中経過、返事が眼鏡へ戻り、机に戻っても同じチャットで続けられる。</desc>
+  <desc id="desc">眼鏡からHi Rokidと接続したオンラインのスマホ経由で音声を届け、Macで文字にする。受付役のAIが相談の続き先を案内し、MacのAIが調査や文書作成を進める。質問、途中経過、返事が眼鏡へ戻り、机に戻っても同じチャットで続けられる。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#245c4a"/></marker>
   </defs>
@@ -25,9 +25,9 @@
   <text x="76" y="477" class="body">途中経過と結果を読む</text>
   <text x="76" y="567" class="small">開いただけでは録音しない</text>
   <rect x="360" y="290" width="154" height="130" rx="14" fill="#f5f7f5" stroke="#b9c9c1" stroke-width="2"/>
-  <text x="379" y="325" class="body">通信を届ける</text>
-  <text x="379" y="356" class="small">接続を確認</text>
-  <text x="379" y="389" class="small">インターネット</text>
+  <text x="379" y="325" class="body">スマホ</text>
+  <text x="379" y="356" class="small">Hi Rokidで接続</text>
+  <text x="379" y="389" class="small">ネットに接続</text>
   <path d="M332 350 H360" class="line"/>
   <path d="M514 350 H548" class="line"/>
   <rect x="548" y="150" width="680" height="458" rx="18" fill="#f5f8f6" stroke="#81aa96" stroke-width="2"/>

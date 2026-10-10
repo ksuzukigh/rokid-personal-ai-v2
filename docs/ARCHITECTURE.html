@@ -5,15 +5,15 @@
 <body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
 <a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
 </div></header><main id="content"><article><h1 id="仕組みをやさしく説明">仕組みをやさしく説明</h1>
-<p>眼鏡は、MacのAIへ話しかける入口です。調査や文書作成はMacで進め、その返事を眼鏡へ戻します。</p>
+<p>眼鏡は、MacのChatGPTデスクトップアプリにあるChatGPT Workのチャットへ話しかける入口です。調査や文書作成は、そのチャットで進め、返事を眼鏡へ戻します。</p>
 <p><img src="/rokid-personal-ai-v2/images/system-overview.svg" alt="眼鏡で話し、MacのAIが相談や作業を進め、途中経過と返事を眼鏡へ戻す流れ" loading="lazy"></p>
 <h2 id="声が返事になるまで">声が返事になるまで</h2>
 <ol>
-<li><strong>眼鏡で話す。</strong> 操作したときだけ録音し、音声をMacへ送ります。</li>
+<li><strong>眼鏡で話す。</strong> テンプルを1回タップしたときだけ録音を始め、音声をMacへ送ります。</li>
 <li><strong>Macで文字にする。</strong> 話した内容を、AIへ渡せる文章に変換します。</li>
-<li><strong>相談の続き先を選ぶ。</strong> 受付役のAIが、今の会話を続けるか、別の会話か、新しい会話かを提案します。別の会話や新しい会話では、会話名を確認します。</li>
-<li><strong>MacのAIが仕事を進める。</strong> 選ばれた会話で、それまでのやり取りや利用できる資料・道具を使って相談を進めます。</li>
-<li><strong>眼鏡で返事を読む。</strong> 途中経過、AIからの質問、最終的な返事を表示します。声で答えると、同じ会話へ戻ります。</li>
+<li><strong>相談の続き先を選ぶ。</strong> 受付役のAIが、今のチャットを続けるか、別のチャットか、新しいチャットかを提案します。別のチャットや新しいチャットでは、チャット名を確認します。</li>
+<li><strong>ChatGPT Workが仕事を進める。</strong> 選ばれたチャットで、それまでのやり取りや利用できる資料・道具を使って相談を進めます。</li>
+<li><strong>眼鏡で返事を読む。</strong> 途中経過、AIからの質問、最終的な返事を表示します。声で答えると、同じチャットへ戻ります。</li>
 </ol>
 <h2 id="それぞれが担当すること">それぞれが担当すること</h2>
 <div class="table-scroll" tabindex="0"><table>
@@ -25,7 +25,7 @@
 </thead>
 <tbody><tr>
 <td>眼鏡</td>
-<td>声を受け取り、会話名や返事を表示する</td>
+<td>声を受け取り、チャット名や返事を表示する</td>
 </tr>
 <tr>
 <td>Macの受付</td>
@@ -40,7 +40,7 @@
 <td>どの相談を続けるかを案内する。文書を編集する仕事はしない</td>
 </tr>
 <tr>
-<td>Macの会話のAI</td>
+<td>ChatGPT Workのチャット</td>
 <td>調べる、考える、文書を作るなど、実際の相談や作業を進める</td>
 </tr>
 </tbody></table>
@@ -48,16 +48,16 @@
 <h2 id="外出先から使うには">外出先から使うには</h2>
 <p>眼鏡をインターネットにつなぎ、自宅などにあるMacへ通信を届けます。スマートフォンのテザリングは、眼鏡にスマートフォンの通信を使わせる方法です。</p>
 <p>Mac側にも通信を受け取る仕組みが必要です。作者の環境ではCloudflare Tunnelという仕組みを使っています。これで通信を届けることと、接続した眼鏡が本人のものか確かめることは、別に扱います。</p>
-<h2 id="会話を取り違えないために">会話を取り違えないために</h2>
-<p>Macは、依頼と実際の会話先、送った状態、返ってきた結果を対応させて覚えておきます。通信が途切れても、同じ依頼の結果を探し、むやみに送り直さないためです。</p>
+<h2 id="チャットを取り違えないために">チャットを取り違えないために</h2>
+<p>Macは、依頼と実際のチャット先、送った状態、返ってきた結果を対応させて覚えておきます。通信が途切れても、同じ依頼の結果を探し、むやみに送り直さないためです。</p>
 <p>眼鏡に表示した質問も覚えておきます。古い質問への返事を、別の新しい質問への同意として使うことを防ぎます。</p>
 <h2 id="自分用に作るときの注意">自分用に作るときの注意</h2>
-<p>MacにAIアプリがあるだけで、眼鏡から自動的につながるわけではありません。音声を届け、既存の会話へ渡し、結果を取り出す部分の開発が必要です。特に、普段のMacの会話へつなぐ方法は、使っているアプリや版によって調査が必要になります。</p>
+<p>MacにAIアプリがあるだけで、眼鏡から自動的につながるわけではありません。音声を届け、既存のチャットへ渡し、結果を取り出す部分の開発が必要です。特に、普段のMacのチャットへつなぐ方法は、使っているアプリや版によって調査が必要になります。</p>
 <p>詳しい部品の仕様やデータ例は、<a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">実装を担当する方向けの資料</a>にまとめています。全体の考え方を知るだけなら、この説明までで構いません。</p>
 <p><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプト</a> · <a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">自分用に作るための進め方</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
 </article>
 <details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
-<li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">会話と操作の例</a></li>
+<li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">チャットとタップの例</a></li>
 <li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html" aria-current="page">仕組みをやさしく説明</a></li>
 <li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の違い</a></li>
 <li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">自分用に作るための進め方</a></li>

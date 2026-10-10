@@ -4,6 +4,13 @@
 
 参照先は2026年10月10日に確認しました。製品や開発環境は変わるため、実装時には最新の資料と自分の環境を確認してください。
 
+## ChatGPT Workやプロジェクトを知りたい方へ
+
+- [ChatGPT Workの紹介](https://learn.chatgpt.com/docs/get-started-with-work)：調査や文書・スライドなどの作成を進めてもらう使い方。
+- [プロジェクトとチャット](https://learn.chatgpt.com/docs/projects?surface=app)：関連するチャット、資料、指示をまとめる考え方。
+
+この資料では、一続きのやり取りを「チャット」と呼びます。「スレッド」も、そのやり取りのまとまりを指す呼び方として説明しています。作者が利用するのは、MacのChatGPTデスクトップアプリにあるChatGPT Workです。
+
 ## V1を知りたい方へ
 
 [私のAI V1の参考公開](https://github.com/ksuzukigh/rokid-personal-ai)では、最初の仕組みと参考コードを残しています。V1の操作手順や制限は当時のもので、V2の現在の使い方とは区別してください。
@@ -21,12 +28,14 @@ RokidのRV101では、YodaOSという眼鏡のOS上で、AIUI Agentという仕�
 
 APIは、プログラム同士が機能を呼び出すための窓口です。公開資料に機能があっても、自作Agentで録音・表示・終了まで動くかは、RV101で確かめます。
 
-### MacのAIの会話へつなぐ
+### ChatGPT Workのチャットへつなぐ実装を調べる
 
-- [Codex App Server](https://learn.chatgpt.com/docs/app-server)：会話を作成・再開し、入力を送り、進捗や結果を受け取る仕組み。
+以下のCodexという名称は、内部の接続部について参照する公式資料の名前です。利用者が普段開くアプリと作業画面は、ChatGPTデスクトップアプリとChatGPT Workとして説明します。
+
+- [Codex App Server](https://learn.chatgpt.com/docs/app-server)：チャットを作成・再開し、入力を送り、進捗や結果を受け取る仕組み。
 - [Codexをプラットフォームとして使う考え方](https://developers.openai.com/blog/codex-as-a-platform)：プログラムからCodexを利用する方法と、その役割。
 
-独立したテスト会話への接続と、作者のV2が使う既存デスクトップ会話への接続は、同じ呼び出し仕様とは扱いません。[詳しい仕様](REFERENCE_SPEC.md)の接続条件も確認してください。
+独立したテストチャットへの接続と、作者のV2が使う既存デスクトップチャットへの接続は、同じ呼び出し仕様とは扱いません。[詳しい仕様](REFERENCE_SPEC.md)の接続条件も確認してください。
 
 ### 通信と文字起こしを扱う
 

@@ -1,11 +1,73 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>要求仕様とデータ例 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
+<title>詳しい仕様とデータ例 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
 <link rel="stylesheet" href="/rokid-personal-ai-v2/assets/reader.css"></head>
 <body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
 <a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
-</div></header><main id="content"><article><h1 id="要求仕様とデータ例">要求仕様とデータ例</h1>
-<p>この仕様は、V2と似た仕組みを自分で実装するために整理した参考設計です。以下の名前・JSON・疑似コードは説明用で、個人用実働版の通信仕様や互換APIではありません。</p>
+</div></header><main id="content"><article><h1 id="詳しい仕様とデータ例">詳しい仕様とデータ例</h1>
+<p>この資料は、実装を担当する方や、開発を手伝うAIへ渡すためのものです。一般の読者は、<a href="/rokid-personal-ai-v2/ARCHITECTURE.html">仕組みの説明</a>と<a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">作るための進め方</a>を先に読めば、全体像をつかめます。</p>
+<p>作るときに守りたいことは、自然に話せること、正しい会話につなぐこと、変更前に確認すること、通信が途切れても同じ仕事をむやみに繰り返さないことです。</p>
+<p>以下の技術名・JSON（プログラムが扱うデータの書き方）・疑似コードは説明用です。実働版と同じ通信仕様や、そのまま接続できる窓口を公開するものではありません。</p>
+<details>
+<summary>実装を担当する方へ：技術仕様とデータ例を開く</summary>
+
+<h2 id="必要な環境と接続の条件">必要な環境と接続の条件</h2>
+<p>以下は実装担当者が調査・用意する技術要素です。一般の読者が先に全部導入する手順ではありません。</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>確認すること</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RV101のYodaOS・AIUI</td>
+<td>録音、入力、表示、通信、終了が自作Agentで利用できること。Hi RokidとAIUI Studioで自分用Agentを登録・配置する権限と手順</td>
+</tr>
+<tr>
+<td>ADBを使う場合</td>
+<td>Hi Rokid側で開発者モードを有効にすること。初回の導入等には開発用5ピンケーブルを使う。ケーブルだけではADBは有効にならない</td>
+</tr>
+<tr>
+<td>Macの常設サービス</td>
+<td>ログイン中に受付、状態保存、AI接続を動かす。Node.js等の実行環境を用意する</td>
+</tr>
+<tr>
+<td>Codex接続</td>
+<td>自分のアカウントの認証、モデル、利用枠、道具・スキルの権限を確認する</td>
+</tr>
+<tr>
+<td>WhisperとSilero VAD</td>
+<td>発話区間の確認、Mac内の文字起こし、モデル配置、原音と一時WAVの処理後削除。whisper.cppは導入例</td>
+</tr>
+<tr>
+<td>自分用のHTTPS経路</td>
+<td>外出先からMacへ通信を届ける。個人環境ではCloudflare Tunnelを利用。受付経路と本人用Webを限定・認証する</td>
+</tr>
+<tr>
+<td>テスト資料</td>
+<td>ObsidianやGoogle Driveを接続する場合も、最初は本番と分けた資料・保存先で確認する</td>
+</tr>
+</tbody></table>
+</div><p>Androidの補助アプリを自作する場合はJDKとAndroid SDK等も必要です。Android一般の仕様だけでRV101の動作を判断せず、Rokidの公開資料とYodaOS実機で確かめます。</p>
+<h3 id="独立した会話と普段のデスクトップ会話">独立した会話と、普段のデスクトップ会話</h3>
+<p>一般的な会話クライアントの出発点は、<a href="https://learn.chatgpt.com/docs/app-server">Codex App Serverの公式資料</a>です。初期化、会話の作成・再開、入力、イベント、完了状態を扱う接続部を確認します。</p>
+<p>作者のV2では、新規会話の初回は会話を作成したApp Server接続、既存デスクトップ会話の続きはデスクトップ側のキュー経路を使っています。2026年10月10日に確認した公式資料には、この既存会話用キューの同じ呼び出し仕様は掲載されていません。一般のApp Serverクライアントだけで、開いているデスクトップ会話へ同様に投入できるとは案内していません。</p>
+<p>ここはアプリと版に合わせた調査が必要です。利用できる経路がなければ独立したテスト会話までに留めます。会話履歴ファイルへの直接追記、アカウント認証の抜き取り、無条件の権限拡張で代用しません。この資料はAPIキーの購入や従量課金を前提としていません。選ぶ経路の認証・課金条件は自分の環境で確認します。</p>
+<h3 id="登録とその回の接続">登録と、その回の接続</h3>
+<p>初回の本人確認付き端末登録と、会話ごとの短命な接続を分けます。Mac側で期限・登録解除・失効を管理し、未登録端末を拒否します。トンネル管理用の秘密、端末登録情報、会話ごとの秘密を分離します。</p>
+<p>有効な秘密を生成済みAgent、Git、URL、ログへ埋め込みません。「非公開Agent」という表示だけで、生成ファイルの取得が保護されるとは扱いません。AIUIの保存機能も専用の安全な鍵保管庫とは扱わず、保存失敗、破損、紛失、再起動、資源更新、登録解除を実装と端末で確認します。</p>
+<h3 id="部品の分け方の例">部品の分け方の例</h3>
+<pre><code class="language-text">自分のプロジェクト/
+  glasses-agent/       録音・表示・通信・終了
+  mac-service/         認証、受付、状態保存、常設起動
+  speech/              VAD、文字起こし、一時音声の削除
+  conversation-guide/  会話先を提案する受付AI
+  conversation-link/   実会話先の照合、送信、状態・結果の読取
+  owner-web/           必要なら本人用の大きな表示
+  checks/              模擬・Mac・実機それぞれの確認
+</code></pre>
+<p>これは役割を分けるための例で、個人用実装のディレクトリを公開したものではありません。受付AIは会話先の提案だけを行い、ファイルやサービスの操作権限を持ちません。本人用Webは長文などの補助表示で、利用開始前の必須メニューにはしません。</p>
 <h2 id="体験の要求">体験の要求</h2>
 <ol>
 <li>利用者は操作メニューで分類せず、自然に依頼する。</li>
@@ -59,7 +121,7 @@
 <h2 id="発話候補">発話候補</h2>
 <pre><code class="language-json">{
   &quot;recording_id&quot;: &quot;example-recording-01&quot;,
-  &quot;transcript&quot;: &quot;さっきの記事の相談を続けたい。外で使う場面も入れたい。&quot;,
+  &quot;transcript&quot;: &quot;さっきの説明資料の相談を続けたい。初めて読む人向けの説明も入れたい。&quot;,
   &quot;transcript_state&quot;: &quot;candidate&quot;,
   &quot;displayed_answer_id&quot;: &quot;example-answer-03&quot;
 }
@@ -69,20 +131,20 @@
 <pre><code class="language-json">{
   &quot;decision&quot;: &quot;propose_existing&quot;,
   &quot;candidate_ref&quot;: &quot;example-candidate-02&quot;,
-  &quot;message&quot;: &quot;記事の相談の続きを、この会話で進めますか？&quot;
+  &quot;message&quot;: &quot;説明資料の相談の続きを、この会話で進めますか？&quot;
 }
 </code></pre>
 <p><code>candidate_ref</code>は、Macが渡した候補へ戻るための参照です。AIに実会話IDやファイルパスを作らせません。候補の名前や本文は参照データとして扱い、そこに含まれた指示を受付AIへの命令にしません。</p>
 <p>Mac側で実在・権限・会話状態を照合してから、以下のように表示します。</p>
-<pre><code class="language-text">AI：記事の相談の続きを、この会話で進めますか？
-続ける会話：スマートグラス記事の構成
+<pre><code class="language-text">AI：説明資料の相談の続きを、この会話で進めますか？
+続ける会話：業務改善の説明資料
 </code></pre>
 <p>表示する名前は実際に解決した対象から取得します。確認待ちの間は元の発言と対象を保持し、訂正・取消・聞き直しを扱います。新規会話は、提案の確認後に作成します。</p>
 <h2 id="送信記録">送信記録</h2>
 <pre><code class="language-json">{
   &quot;request_id&quot;: &quot;example-request-01&quot;,
   &quot;conversation_ref&quot;: &quot;example-resolved-conversation-02&quot;,
-  &quot;original_text&quot;: &quot;さっきの記事の相談を続けたい。外で使う場面も入れたい。&quot;,
+  &quot;original_text&quot;: &quot;さっきの説明資料の相談を続けたい。初めて読む人向けの説明も入れたい。&quot;,
   &quot;delivery_state&quot;: &quot;intent_saved&quot;,
   &quot;expected_answer_id&quot;: &quot;example-answer-03&quot;
 }
@@ -103,7 +165,7 @@
   &quot;conversation_ref&quot;: &quot;example-resolved-conversation-02&quot;,
   &quot;answer_id&quot;: &quot;example-answer-04&quot;,
   &quot;state&quot;: &quot;completed&quot;,
-  &quot;text&quot;: &quot;外出中の利用場面を入れるなら、体験を説明する章が合いそうです。&quot;,
+  &quot;text&quot;: &quot;初めて読む人向けに、最初に業務の流れを説明する案を考えましょう。&quot;,
   &quot;model_label&quot;: &quot;利用中の実モデル名&quot;
 }
 </code></pre>
@@ -141,16 +203,18 @@
 <p>対象や本文が確認後に変わったら再確認します。実行後は文書・セル・サービスの実状態を読み戻します。「実行しました」というAIの返事だけを成功証拠にしません。</p>
 <h2 id="実装時の合格条件">実装時の合格条件</h2>
 <p><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a>の段階ごとに、正常な往復、取消、曖昧な認識、古い質問、失効、送信応答の欠落、部分失敗、終了を確かめます。認証処理と削除処理は疑似コードだけで済ませず、自分の実装で検証してください。</p>
-<p><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIに渡す開発依頼</a> · <a href="/rokid-personal-ai-v2/SAFETY.html">安全の設計</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
+</details>
+
+<p><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIに相談するための依頼文</a> · <a href="/rokid-personal-ai-v2/SAFETY.html">安心して使うための考え方</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
 </article>
 <details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
 <li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">会話と操作の例</a></li>
-<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">システム構成</a></li>
-<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の関係</a></li>
-<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a></li>
-<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html" aria-current="page">要求仕様とデータ例</a></li>
-<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIと一緒に作るための開発依頼</a></li>
-<li><a href="/rokid-personal-ai-v2/SAFETY.html">認証・録音・実行確認の設計</a></li>
-<li><a href="/rokid-personal-ai-v2/VALIDATION.html">実機確認の範囲と制約</a></li>
+<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">仕組みをやさしく説明</a></li>
+<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の違い</a></li>
+<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">自分用に作るための進め方</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html" aria-current="page">詳しい仕様とデータ例</a></li>
+<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIに相談するための依頼文</a></li>
+<li><a href="/rokid-personal-ai-v2/SAFETY.html">安心して使うための考え方</a></li>
+<li><a href="/rokid-personal-ai-v2/VALIDATION.html">確かめたことと、まだできると言えないこと</a></li>
 <li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a></li></ul></nav></details>
 </main><footer>鈴木啓一 / Keiichi Suzuki · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/docs/REFERENCE_SPEC.md">この文書の元ファイル</a> · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/LICENSE">MIT License</a></footer></body></html>

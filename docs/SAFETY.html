@@ -1,41 +1,41 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>認証・録音・実行確認の設計 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
+<title>安心して使うための考え方 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
 <link rel="stylesheet" href="/rokid-personal-ai-v2/assets/reader.css"></head>
 <body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
 <a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
-</div></header><main id="content"><article><h1 id="認証-録音-実行確認の設計">認証 録音 実行確認の設計</h1>
-<p>自然に話せることと、どこへ何を実行するかを正確に扱うことを両立させます。受付AIの自由な説明だけで権限を決めず、Mac側が実対象と確認状態を照合します。</p>
-<h2 id="端末の登録と接続">端末の登録と接続</h2>
-<p>初回だけ本人が眼鏡を確認して登録し、その後は登録済み端末がその回の接続を取得する構成です。端末登録と短命な会話接続を分け、Macで期限と失効を管理します。</p>
-<p>生成Agent、Git、URL、ログへ有効な秘密を埋め込みません。「非公開Agent」と表示されていても、生成ファイルの取得まで認証で守られるとは想定しません。トンネル管理用の秘密もMac側だけで扱います。</p>
-<p>AIUIにはAgentごとの保存機能がありますが、専用の安全な鍵保管庫であるとは扱いません。保存失敗、破損、登録解除、紛失、再起動、資源更新でどうなるかを自分の実装と端末で確認します。<a href="https://github.com/yodaos-project/AIUI/blob/main/documentation/3-api/storage-api.en-US.md">AIUI保存APIの公式資料</a></p>
-<h2 id="録音は利用者の1回操作で始める">録音は利用者の1回操作で始める</h2>
-<p>起動だけでは録音しません。「タップして話す」または「タップして続けて話す」の1回操作を録音開始の意思確認にします。録音中であることを表示し、話し終えたときの手動終了と最長60秒を設けます。</p>
-<p>毎回の二段階確認は入れません。原音と一時音声は処理後に削除し、失敗、取消、終了の経路でも削除を確認します。文字化した発言や会話履歴は別に残るので、音声削除がすべての記録削除を意味するわけではありません。</p>
-<p>Whisperへ渡す前にVADで発話区間を確認します。無音からの誤った文章生成を減らしますが、周囲の実在する声やテレビ音声を完全に分離するものではありません。</p>
-<h2 id="意味理解と確定を分ける">意味理解と確定を分ける</h2>
-<p>受付AIは元の発言、会話の文脈、候補を読みます。候補の名前や内容を参照データとして扱い、そこに含まれる指示で受付の権限を変えません。</p>
-<p>会話先の提案はMacの実会話へ解決します。AIが作った呼び名だけを画面に出して送信しません。確認中の返事が文脈に合わない場合は、元の依頼と対象を保持して聞き直します。</p>
-<h2 id="読んだ質問と返答を結ぶ">読んだ質問と返答を結ぶ</h2>
-<p>眼鏡へ表示した回答の識別情報と、Macの最新質問を照合します。WebやMacで会話が進んだ後の古い「はい」を、新しい変更の承認に使いません。質問が違う、または照合できない場合は送信を止めて最新内容を示します。</p>
-<h2 id="実際の変更直前に確認する">実際の変更直前に確認する</h2>
-<p>保存、編集、送信、公開、削除、予定登録、購入などは、対象・内容・影響・権限を一致させて確認します。これは設計上の共通境界であり、列挙した全操作がV2で実機検証済みという意味ではありません。</p>
-<p>確認後に対象や本文が変わった場合は再確認します。録音開始や会話先への同意を、別の文書変更への同意に流用しません。利用するスキルが公開を禁止している場合なども、そのルールを維持します。</p>
-<h2 id="応答が不明なら状態を読む">応答が不明なら状態を読む</h2>
-<p>依頼ID、送信意図、実会話先、元の発言を保持します。通信が切れても、送ったか不明という理由で同じ依頼を無条件に送信しません。同じ依頼の状態と結果を読んで照合します。</p>
-<p>失敗報告だけでは、途中の変更がなかったとは限りません。実際の保存先やサービスも読み戻します。眼鏡の終了を、Macで始まった仕事の取消や実行済み変更の巻き戻しとして扱いません。</p>
-<p>これらは検証した条件での設計と対策です。あらゆる競合、故障、サービスの組合せで完全な一回実行を保証するものではありません。<a href="/rokid-personal-ai-v2/VALIDATION.html">検証範囲</a></p>
-<p><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
+</div></header><main id="content"><article><h1 id="安心して使うための考え方">安心して使うための考え方</h1>
+<p>声で自然に頼めることと、意図した相手や文書へ正しく届くことを両立させるため、次のように考えています。</p>
+<h2 id="開いただけでは録音しない">開いただけでは録音しない</h2>
+<p>「タップして話す」または「タップして続けて話す」を1回操作すると録音を始めます。録音中であることを表示し、話し終わったときの操作で終了します。最長は60秒です。録音開始のために、さらにもう一度確認させる手順は入れていません。</p>
+<p>録音した音声と、文字起こしのための一時音声は、処理後に削除します。失敗や取消の場合も削除を確認する設計です。ただし、<strong>文字にした発言やAIとの会話履歴は別に残ります。</strong> 音声を消すことと、すべての記録を消すことは違います。</p>
+<h2 id="聞き違いをそのまま同意にしない">聞き違いを、そのまま同意にしない</h2>
+<p>音声を文字にする前に、人の声がある区間を確かめ、無音から誤った文章が生まれることを減らしています。ただし、周囲の人やテレビの声を完全に除けるわけではありません。</p>
+<p>確認待ちの返事が文脈に合わないときは、同意と決めつけず、元の依頼を保持して聞き直します。利用者も、会話名や重要な確認内容を画面で確かめることが大切です。</p>
+<h2 id="相談の続き先を確認する">相談の続き先を確認する</h2>
+<p>別の会話へ移るときや、新しい相談を作るときには、実際に使う会話名を画面に表示します。AIがそれらしい名前を説明するだけで送るのではなく、Macが実際の会話先を確かめます。</p>
+<p>また、Macから先に相談を進めたために眼鏡の質問が古くなった場合、古い質問への「はい」を新しい質問の承認には使いません。最新の内容を表示します。</p>
+<h2 id="文書を変更する前に確認する">文書を変更する前に確認する</h2>
+<p>保存や編集の前には、どの文書へ、何をするかを示して確認を受けます。確認後に対象や本文が変われば、改めて確認します。話し始めるための操作や、会話先への同意を、文書変更の許可には使いません。</p>
+<p>送信や公開などを扱う場合にも、この考え方を適用します。ただし、作者のV2で全種類の操作を確認済みという意味ではありません。<a href="/rokid-personal-ai-v2/VALIDATION.html">実際に確かめた範囲</a>を参照してください。</p>
+<p>実行後は、実際の文書や保存先を確かめます。「保存しました」というAIの返事だけで、保存に成功したと判断しないようにしています。</p>
+<h2 id="返事がないときに同じ仕事を繰り返さない">返事がないときに、同じ仕事を繰り返さない</h2>
+<p>通信が切れた場合、依頼が届かなかったのか、届いて仕事が進んでいるのか、その時点ではわからないことがあります。そこで、まず同じ依頼の状態を確かめます。返事がないという理由だけで送り直すと、文書などを二重に作るおそれがあるためです。</p>
+<p>エラーが出ても、途中まで変更されていることがあります。実際の保存先も確認します。眼鏡を閉じる操作で、Macで始まった仕事の取消や、保存済み文書の復元が保証されるわけではありません。</p>
+<h2 id="接続と資料の扱いを決める">接続と資料の扱いを決める</h2>
+<p>本人が登録した眼鏡からだけ利用できるようにし、登録を解除できるようにします。通信を届ける仕組みとは別に、利用者や端末を確認します。</p>
+<p>認証情報を公開資料や配布用のファイルへ入れません。資料やサービスの利用範囲も、自分が許可した範囲にします。職場の資料を使う場合は、その職場で認められたAIや保存先、資料の扱いを前提に、自分の用途を検討します。</p>
+<p>ここで紹介したのは、作者が確認した条件での設計と対策です。すべての聞き違い、故障、通信の状態に対する保証ではありません。</p>
+<p><a href="/rokid-personal-ai-v2/VALIDATION.html">確認した範囲と制約</a> · <a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">実装を担当する方向けの詳しい仕様</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
 </article>
 <details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
 <li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">会話と操作の例</a></li>
-<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">システム構成</a></li>
-<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の関係</a></li>
-<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a></li>
-<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様とデータ例</a></li>
-<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIと一緒に作るための開発依頼</a></li>
-<li><a href="/rokid-personal-ai-v2/SAFETY.html" aria-current="page">認証・録音・実行確認の設計</a></li>
-<li><a href="/rokid-personal-ai-v2/VALIDATION.html">実機確認の範囲と制約</a></li>
+<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">仕組みをやさしく説明</a></li>
+<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の違い</a></li>
+<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">自分用に作るための進め方</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">詳しい仕様とデータ例</a></li>
+<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIに相談するための依頼文</a></li>
+<li><a href="/rokid-personal-ai-v2/SAFETY.html" aria-current="page">安心して使うための考え方</a></li>
+<li><a href="/rokid-personal-ai-v2/VALIDATION.html">確かめたことと、まだできると言えないこと</a></li>
 <li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a></li></ul></nav></details>
 </main><footer>鈴木啓一 / Keiichi Suzuki · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/docs/SAFETY.md">この文書の元ファイル</a> · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/LICENSE">MIT License</a></footer></body></html>

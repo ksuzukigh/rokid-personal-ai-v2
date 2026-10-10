@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="850" viewBox="0 0 1280 850" role="img" aria-labelledby="title desc">
-  <title id="title">私のAI V2のシステム構成</title>
-  <desc id="desc">RV101は録音と表示の入口。固定HTTPS経路でMacへ音声を送り、Mac内で文字化する。受付AIが会話先を提案し、実会話名の確認後にMacのCodex会話が調査と作業を担当する。同じ会話の質問、途中経過、最終回答が眼鏡へ戻る。Obsidian、Google Drive、Web、スキルはMac会話から利用する。</desc>
+  <title id="title">眼鏡とMacの役割</title>
+  <desc id="desc">眼鏡で話した音声をMacで文字にする。受付役のAIが相談の続き先を案内し、MacのAIが調査や文書作成を進める。質問、途中経過、返事が眼鏡へ戻り、机に戻っても同じ会話で続けられる。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#245c4a"/></marker>
   </defs>
@@ -18,45 +18,45 @@
   <rect x="52" y="150" width="280" height="458" rx="18" fill="#eaf5ee" stroke="#81aa96" stroke-width="2"/>
   <text x="76" y="186" class="tag">音声と表示の入口</text>
   <text x="76" y="230" class="heading">Rokid RV101</text>
-  <text x="76" y="264" class="body">私のAI / AIUI Agent</text>
+  <text x="76" y="264" class="body">声で相談し、返事を読む</text>
   <path d="M84 314 L132 314 Q149 314 149 331 L149 344 Q149 362 133 362 L103 362 Q84 362 84 344 Z M157 331 Q171 318 187 331 M195 314 L243 314 L243 344 Q243 362 224 362 L209 362 Q192 362 192 344 L192 331 Q192 314 209 314" fill="none" stroke="#245c4a" stroke-width="4"/>
   <text x="76" y="409" class="body">操作して録音を始める</text>
   <text x="76" y="443" class="body">会話名・質問を確認する</text>
   <text x="76" y="477" class="body">途中経過と結果を読む</text>
   <text x="76" y="567" class="small">開いただけでは録音しない</text>
   <rect x="360" y="290" width="154" height="130" rx="14" fill="#f5f7f5" stroke="#b9c9c1" stroke-width="2"/>
-  <text x="379" y="325" class="body">固定HTTPS</text>
-  <text x="379" y="356" class="small">認証付き経路</text>
-  <text x="379" y="389" class="small">Tunnel等</text>
+  <text x="379" y="325" class="body">通信を届ける</text>
+  <text x="379" y="356" class="small">接続を確認</text>
+  <text x="379" y="389" class="small">インターネット</text>
   <path d="M332 350 H360" class="line"/>
   <path d="M514 350 H548" class="line"/>
   <rect x="548" y="150" width="680" height="458" rx="18" fill="#f5f8f6" stroke="#81aa96" stroke-width="2"/>
-  <text x="574" y="186" class="tag">Macで認証・受付・状態を管理</text>
+  <text x="574" y="186" class="tag">Macで相談と仕事を進める</text>
   <rect x="574" y="209" width="628" height="68" rx="10" fill="#ffffff" stroke="#c5d5cb"/>
-  <text x="596" y="238" class="body">Whisper + VAD：Mac内で音声を文字化</text>
-  <text x="596" y="262" class="small">原音と一時音声は処理後に削除</text>
+  <text x="596" y="238" class="body">音声を文字にする</text>
+  <text x="596" y="262" class="small">録音した音声は処理後に削除</text>
   <path d="M687 277 V301" class="line"/>
   <rect x="574" y="306" width="238" height="166" rx="12" fill="#ffffff" stroke="#b9c9c1" stroke-width="2"/>
-  <text x="596" y="341" class="heading">受付AI</text>
-  <text x="596" y="378" class="body">会話先を提案する</text>
-  <text x="596" y="410" class="small">現在・別・新しい会話</text>
-  <text x="596" y="449" class="small">ファイルは操作しない</text>
+  <text x="596" y="341" class="heading">受付役のAI</text>
+  <text x="596" y="378" class="body">相談の続き先を案内</text>
+  <text x="596" y="410" class="small">今の相談・別・新規</text>
+  <text x="596" y="449" class="small">実際の作業は担当しない</text>
   <path d="M812 382 H842" class="line"/>
   <rect x="842" y="306" width="360" height="166" rx="12" fill="#e4f1e8" stroke="#548c6c" stroke-width="2"/>
-  <text x="864" y="341" class="heading">MacのCodex会話</text>
+  <text x="864" y="341" class="heading">Macの会話のAI</text>
   <text x="864" y="378" class="body">実際の調査と作業を担当</text>
-  <text x="864" y="410" class="small">同じ履歴・作業場所・道具を使う</text>
-  <text x="864" y="449" class="small">実変更の直前に対象と内容を確認</text>
-  <text x="574" y="505" class="small">別・新規会話は実会話名を表示して確認 → 元の発言を1回送信</text>
+  <text x="864" y="410" class="small">それまでの相談・資料・道具を使う</text>
+  <text x="864" y="449" class="small">保存・編集の前に内容を確認</text>
+  <text x="574" y="505" class="small">別の相談や新しい相談は、会話名を表示して確認</text>
   <path d="M1022 472 V538 H192 V512" class="line"/>
   <rect x="364" y="544" width="615" height="41" rx="8" fill="#f5f8f6"/>
-  <text x="382" y="572" class="body">同じ会話の質問・途中経過・最終回答を眼鏡へ</text>
+  <text x="382" y="572" class="body">同じ相談の質問・途中経過・返事を眼鏡へ</text>
   <path d="M1022 608 V673" class="line"/>
   <rect x="548" y="679" width="680" height="92" rx="14" fill="#ffffff" stroke="#b9c9c1" stroke-width="2"/>
-  <text x="574" y="715" class="body">Obsidian / Google Drive / Web / スキル</text>
-  <text x="574" y="749" class="small">選ばれたMac会話が利用できる範囲で使う</text>
+  <text x="574" y="715" class="body">自分のメモ・文書 / Google Drive / Webなど</text>
+  <text x="574" y="749" class="small">MacのAIが、自分の許可した範囲で利用する</text>
   <rect x="52" y="679" width="430" height="92" rx="14" fill="#ffffff" stroke="#b9c9c1" stroke-width="2"/>
-  <text x="76" y="715" class="body">本人用Web・Macも併用</text>
-  <text x="76" y="749" class="small">長い本文や詳しい確認を読む</text>
-  <text x="52" y="815" class="small">概念図。個人用実装の通信仕様や接続情報を示すものではありません。</text>
+  <text x="76" y="715" class="body">詳しい確認や仕上げはMacで</text>
+  <text x="76" y="749" class="small">同じ会話を開いて、続きを進める</text>
+  <text x="52" y="815" class="small">全体の役割を示す図です。開発に使う通信仕様を示すものではありません。</text>
 </svg>

@@ -1,89 +1,95 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AIと一緒に作るための開発依頼 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
+<title>AIに相談するための依頼文 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
 <link rel="stylesheet" href="/rokid-personal-ai-v2/assets/reader.css"></head>
 <body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
 <a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
-</div></header><main id="content"><article><h1 id="aiと一緒に作るための開発依頼">AIと一緒に作るための開発依頼</h1>
-<p>以下を、開発を手伝うAIへ渡してください。このリポジトリの資料も読めるようにします。最初は接続・権限・実装できる範囲を調べ、Mac内の専用テスト会話から始めます。</p>
-<h2 id="自分の条件を記入する">自分の条件を記入する</h2>
+</div></header><main id="content"><article><h1 id="aiに相談するための依頼文">AIに相談するための依頼文</h1>
+<p>似た仕組みを作りたいとき、最初から技術用語を並べる必要はありません。何をしたいか、自分が使う環境、何を確認してから進めたいかを伝えます。</p>
+<p>以下は、開発を手伝うAIへ渡すための出発点です。この公開資料も読めるようにしてください。依頼文だけでアプリが完成するものではなく、作れる範囲を調べて、実装と確認を進めるためのものです。</p>
+<h2 id="自分の条件を書く">自分の条件を書く</h2>
 <div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
-<th>記入する内容</th>
+<th>記入例</th>
 </tr>
 </thead>
 <tbody><tr>
+<td>最初にしたいこと</td>
+<td>Macで相談していた説明資料の続きを、眼鏡から声で考えたい</td>
+</tr>
+<tr>
 <td>使う眼鏡</td>
-<td>機種、OS、AIUIの利用可否</td>
+<td>機種名。持っていなければ、まだ持っていないと書く</td>
 </tr>
 <tr>
-<td>Mac</td>
-<td>OS、開発環境、常設稼働できる条件</td>
+<td>MacとAI</td>
+<td>自分のMac、OS、普段使っているAIアプリ</td>
 </tr>
 <tr>
-<td>AI</td>
-<td>利用しているアプリ・CLI、アカウント、使える接続方法</td>
+<td>資料と保存先</td>
+<td>最初は自分が用意したテスト用の資料と保存場所</td>
 </tr>
 <tr>
-<td>資料</td>
-<td>読み取りたいObsidian、Google Driveなど。秘密や本文はここへ貼らない</td>
+<td>使う場所</td>
+<td>自宅内だけ、または外出先からも使いたい</td>
 </tr>
 <tr>
-<td>作業</td>
-<td>調査、相談、文書作成など、最初に実現したい1つの体験</td>
-</tr>
-<tr>
-<td>確認方法</td>
-<td>眼鏡、本人用Web、Macのどこで何を確認するか</td>
+<td>開発の経験</td>
+<td>プログラミングには詳しくないので、目的と影響をやさしく説明してほしい</td>
 </tr>
 </tbody></table>
-</div><h2 id="コピーして使う依頼">コピーして使う依頼</h2>
-<pre><code class="language-text">「私のAI V2」の参考資料を読み、自分用の似た仕組みを作るのを手伝ってください。
+</div><p>パスワード、接続に使う秘密、職場の実資料を、この依頼文へ貼り付けないでください。</p>
+<h2 id="コピーして使う依頼">コピーして使う依頼</h2>
+<pre><code class="language-text">「私のAI V2」の公開資料を参考に、自分用の似た仕組みを作る相談をしたいです。
+私はプログラミングに詳しくありません。一般事務職にもわかる言葉で説明してください。
 
-目的は、眼鏡から自然に話して、MacのAIとの会話と仕事を続けることです。
-README、CONCEPT、ARCHITECTURE、BUILD_GUIDE、REFERENCE_SPEC、SAFETYを先に読んでください。
-この公開資料には実働版のソース一式やインストーラーはありません。
-掲載されたJSON例は説明用で、互換APIではありません。
+実現したいこと：［最初にしたいことを書く］
+使う眼鏡：［機種名、またはまだ持っていない］
+Macと普段使うAI：［自分の環境を書く］
+使いたい資料と保存先：［最初はテスト用のものを書く］
+使いたい場所：［自宅内だけ／外出先からも］
 
-最初に、私の環境と、現時点で利用できる公式の接続方法を確認してください。
-使える接続と未確認の接続を分け、実現可能な構成と、足りない部品を説明してください。
-特に、独立したCodex会話への接続と、開いているデスクトップ会話への接続を混同しないでください。
+まず、公開資料の紹介、使い方、コンセプト、仕組み、作る進め方を読んでください。
+開発を考えるときは、詳しい仕様、安全の考え方、確認した範囲、参照資料も読んでください。
+この資料には完成したアプリや実際のプログラム一式はありません。
 
-利用者は、質問・依頼・説明を分類せず自然に話します。
-固定キーワードで意味理解を狭めず、情報が足りない場合は自然に聞き返してください。
-会話先を判断する受付AIには、ファイル操作やスキル実行の権限を与えません。
-実作業は、選ばれたMac会話が担当します。
+最初に、私の環境で作れる範囲と、調査が必要な部分を説明してください。
+Macの新しいテスト会話につなぐことと、普段使っている会話の続きを進めることを分けてください。
+使えない機能を推測で補わず、提案した接続方法が実在するか確認してください。
 
-まず専用のテスト会話へ文字を1回送り、完了状態と本文を読める最小構成を作ってください。
-それから依頼状態の保持、認証付き眼鏡表示、実音声、会話先確認、既存会話への接続、
-進捗・結果・聞き返しの共有、確認後の変更、復旧・終了へ段階的に進めてください。
+小さく作り、Macだけの文字の往復から、眼鏡の表示、音声、普段の会話へと進めてください。
+利用者には機能の分類を選ばせず、やりたいことを自然に話せるようにしてください。
+足りない情報は、AIが自然に聞き返してください。
+相談先を案内するAIと、文書などを扱うAIの役割を分けてください。
 
-実会話ID、対象、表示した質問、元の依頼、送信状態はMac側で照合します。
-通信の結果が不明な依頼を自動再送しないでください。
-古い質問への返答や、文脈に合わない音声認識を、同意として使わないでください。
-原音と一時音声を処理後に削除し、生成Agentへ有効な秘密を埋め込まないでください。
+開いただけでは録音せず、利用者の1回操作で録音を始めてください。
+録音した音声と一時音声は処理後に削除してください。
+実際の会話先を確認し、古い質問への「はい」や聞き違いを、別の操作の承認に使わないでください。
+通信の結果がわからないときは、同じ依頼をむやみに送り直さず、状態を確かめてください。
 
-保存・編集・送信・公開などの実行直前には、対象・内容・影響を示し確認を受けてください。
-使用する道具やスキルの権限とルールは維持してください。
-新規契約、課金、外部公開、本番設定の変更を、最小構成の準備に混ぜないでください。
+保存・編集などの前には、対象、内容、影響を示して確認を受けてください。
+使う道具に決められた権限や手順がある場合は守ってください。
+新しい契約、課金、公開、本番の設定変更が必要なら、その内容を先に説明してください。
+端末操作を私に頼む前に、Macでできる準備を済ませ、目的と負担を説明してください。
 
-端末操作を頼む前にMacで準備できることを済ませ、目的・操作・所要時間を説明してください。
-模擬確認、Mac確認、実機の音声・表示確認を分けて報告し、合格済みの操作を繰り返さないでください。
-自分の環境で確認していないものを、再現済みや完成と報告しないでください。
+机上の確認、Macでの確認、眼鏡での音声と表示の確認を分けて報告してください。
+実際に確かめていないことを、できたことや完成したこととして扱わないでください。
 </code></pre>
-<p>この依頼文は、認証、権限、実機検証の代わりにはなりません。AIの提案したAPIや権限が実在するかを公式資料と自分の環境で確認し、必要な部品を作ります。</p>
-<p><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a> · <a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
+<h2 id="aiの提案を受け取ったら">AIの提案を受け取ったら</h2>
+<p>まず「最初に何ができるか」「何がまだわからないか」「自分にどんな作業が必要か」を確認します。専門用語が出てきたら、何のために必要か説明してもらいます。</p>
+<p>AIがコードを作ったことと、眼鏡で実際に使えることは別です。接続、本人確認、音声削除、文書変更の確認は、自分の環境で動作を確かめる必要があります。実装の判断が難しい部分は、技術に詳しい人にも相談してください。</p>
+<p><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">自分用に作るための進め方</a> · <a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">詳しい仕様とデータ例</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
 </article>
 <details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
 <li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">会話と操作の例</a></li>
-<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">システム構成</a></li>
-<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の関係</a></li>
-<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a></li>
-<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様とデータ例</a></li>
-<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html" aria-current="page">AIと一緒に作るための開発依頼</a></li>
-<li><a href="/rokid-personal-ai-v2/SAFETY.html">認証・録音・実行確認の設計</a></li>
-<li><a href="/rokid-personal-ai-v2/VALIDATION.html">実機確認の範囲と制約</a></li>
+<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">仕組みをやさしく説明</a></li>
+<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の違い</a></li>
+<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">自分用に作るための進め方</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">詳しい仕様とデータ例</a></li>
+<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html" aria-current="page">AIに相談するための依頼文</a></li>
+<li><a href="/rokid-personal-ai-v2/SAFETY.html">安心して使うための考え方</a></li>
+<li><a href="/rokid-personal-ai-v2/VALIDATION.html">確かめたことと、まだできると言えないこと</a></li>
 <li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a></li></ul></nav></details>
 </main><footer>鈴木啓一 / Keiichi Suzuki · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/docs/AI_BUILD_PROMPT.md">この文書の元ファイル</a> · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/LICENSE">MIT License</a></footer></body></html>

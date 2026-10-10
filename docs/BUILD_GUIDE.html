@@ -1,171 +1,126 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>再現の手引き | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
+<title>自分用に作るための進め方 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
 <link rel="stylesheet" href="/rokid-personal-ai-v2/assets/reader.css"></head>
 <body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
 <a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
-</div></header><main id="content"><article><h1 id="自分の環境で作るための手引き">自分の環境で作るための手引き</h1>
-<p>この手引きは、V2の設計を参考に自分用の仕組みを組み立てる順序を示します。実働版を再配布するセットアップ手順ではありません。公開資料だけでは起動せず、各段階の実装と検証が必要です。</p>
-<h2 id="最初に決めること">最初に決めること</h2>
-<p>まず、眼鏡から何をしたいか、どの資料を読みたいか、どの変更を許可するかを決めます。「既存のMac会話を眼鏡から続ける」のが完成像ですが、最初は専用のテスト会話で、文字の往復だけを作ると部品を確かめやすくなります。</p>
+</div></header><main id="content"><article><h1 id="自分用に作るための進め方">自分用に作るための進め方</h1>
+<p>この資料から、似た仕組みを自分の用途に合わせて考えることができます。ただし、ダウンロードしてすぐ使える完成品ではありません。動かすには、開発を手伝うAIや技術に詳しい人と相談し、自分の環境で作って確かめる必要があります。</p>
+<p>プログラミングに詳しくない方は、まず目的と条件を整理するところから始めてください。以下は、開発担当者と相談を進めるための順序です。</p>
+<h2 id="1-最初に実現したいことを一つ決める">1. 最初に実現したいことを一つ決める</h2>
+<p>「眼鏡から何でもできるようにする」では、必要な準備が広くなります。最初に使いたい場面を一つ書いてみます。</p>
+<ul>
+<li>Macで相談していた説明資料の続きを、席を離れても考えたい。</li>
+<li>調べたいことを声で頼み、あとでMacから結果を読みたい。</li>
+<li>新しいアイデアを相談し、同じ会話で下書きへ発展させたい。</li>
+</ul>
+<p>その上で、使いたい資料、保存したい場所、どこまでAIに任せるかを決めます。最初は個人情報を含まないテスト用資料を用意すると、動作を確かめやすくなります。</p>
+<h2 id="2-自分の環境を書き出す">2. 自分の環境を書き出す</h2>
 <div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th>構成</th>
-<th>得られる体験</th>
-<th>自分で用意するもの</th>
+<th>整理すること</th>
+<th>開発を手伝う相手に伝える内容</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Mac内の最小構成</td>
-<td>専用テスト会話への入力と返事</td>
-<td>Codexとの接続部、依頼の記録、結果の読取</td>
-</tr>
-<tr>
-<td>眼鏡との往復</td>
-<td>実音声を送って眼鏡で返事を読む</td>
-<td>AIUI Agent、文字起こし、登録・通信・表示</td>
-</tr>
-<tr>
-<td>V2の完成像</td>
-<td>普段のMac会話を選び、同じ仕事を続ける</td>
-<td>デスクトップ会話の一覧・照合・送信・同期の接続部</td>
-</tr>
-</tbody></table>
-</div><p>最小構成が動いても、V2全体を再現したことにはなりません。</p>
-<h2 id="必要な環境">必要な環境</h2>
-<div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>項目</th>
-<th>役割と確認事項</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Rokid AI Glasses RV101</td>
-<td>YodaOSのAIUIで画面、録音、入力、通信を扱える検証端末</td>
-</tr>
-<tr>
-<td>Hi RokidとAIUI Studio</td>
-<td>自分用Agentの登録、配置、資源更新。利用できる権限・現在の手順を確認する</td>
-</tr>
-<tr>
-<td>ADBを使う開発環境</td>
-<td>使う場合はHi Rokid側で開発者モードを有効にする。開発用5ピンケーブルだけではADBは有効にならない</td>
+<td>眼鏡</td>
+<td>機種名。作者が確認したのはRokid AI Glasses RV101</td>
 </tr>
 <tr>
 <td>Mac</td>
-<td>受付、状態保存、文字起こし、AI接続を動かす。必要な間はログインし通信できる状態を保つ</td>
+<td>使っているMacとOS。利用中に起動・ログイン・通信できるか</td>
 </tr>
 <tr>
-<td>Node.js等の実行環境</td>
-<td>Mac受付と接続部を実装するために用意する</td>
+<td>AI</td>
+<td>普段使っているアプリとアカウント。使える機能や権限</td>
 </tr>
 <tr>
-<td>Codexと利用者自身のアカウント</td>
-<td>会話、利用モデル、権限、利用枠、道具・スキルの接続を確認する</td>
+<td>資料と保存先</td>
+<td>読みたい資料と保存場所。最初はテスト用のもの</td>
 </tr>
 <tr>
-<td>WhisperとSilero VAD</td>
-<td>Mac内の文字起こし。導入例はwhisper.cpp。モデルの配置と利用条件も確認する</td>
+<td>外出先での利用</td>
+<td>自宅内だけか、スマートフォンの通信で外からも使うか</td>
 </tr>
 <tr>
-<td>自分で管理するHTTPS経路</td>
-<td>外出先から使う場合に必要。個人環境ではCloudflare Tunnelを使用</td>
-</tr>
-<tr>
-<td>テスト用の資料・保存場所</td>
-<td>ObsidianやGoogle Driveを接続する場合に、本番資料と分けて用意する</td>
+<td>確認の方法</td>
+<td>眼鏡で読む内容と、Macで詳しく確かめる内容</td>
 </tr>
 </tbody></table>
-</div><p>Androidの補助アプリを自作する場合は、JDK・Android SDKなども必要です。AIUIの操作や権限をAndroid一般の仕様で置き換えず、<a href="/rokid-personal-ai-v2/REFERENCES.html">Rokidの資料</a>とRV101で確かめます。RV203など他機種で同じ動作をするとは扱いません。</p>
-<h2 id="自分で実装する部品">自分で実装する部品</h2>
-<p>以下は推奨する分割例です。個人用実装のファイル名やディレクトリを公開したものではありません。</p>
-<pre><code class="language-text">自分のプロジェクト/
-  glasses-agent/       録音・表示・通信・終了
-  mac-service/         認証、受付、状態保存、常設起動
-  speech/              VAD、文字起こし、一時音声の削除
-  conversation-guide/  会話先を提案する受付AI
-  conversation-link/   実会話先の照合、送信、状態・結果の読取
-  owner-web/           必要なら本人用の大きな表示
-  checks/              模擬・Mac・実機それぞれの確認
-</code></pre>
-<p>役割、入出力、例外時の動きを<a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様</a>にまとめています。<a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIに渡す開発依頼</a>を併せて使えます。</p>
-<h2 id="作る順序と合格の目安">作る順序と合格の目安</h2>
+</div><p>通信先やパスワードなどの秘密、職場の実資料を、公開の相談文へ貼り付ける必要はありません。</p>
+<h2 id="3-作れる範囲を先に調べてもらう">3. 作れる範囲を先に調べてもらう</h2>
+<p>MacのAIへ入力を渡し、返事を取り出す方法、眼鏡の録音や表示を扱う方法、通信と本人確認の方法を調べます。特に、Macですでに使っている会話へつなぐ方法は、アプリや版に依存します。</p>
+<p>作者の環境で動いたことが、そのまま自分の環境でもできるとは限りません。<strong>使える方法、まだ確認が必要な方法、足りない部品を説明してもらうこと</strong>が最初の判断になります。</p>
+<p>AIに相談する場合は、<a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">依頼文</a>を出発点にできます。AIが提案した機能や接続方法が実在するかを確かめる工程も必要です。</p>
+<h2 id="4-小さく作り段階ごとに確かめる">4. 小さく作り、段階ごとに確かめる</h2>
 <div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>段階</th>
-<th>実装すること</th>
-<th>次へ進む前に確かめること</th>
+<th>確かめる体験</th>
+<th>次へ進む前に見ること</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>1. Mac内の文字往復</td>
-<td>自分の専用テスト会話へ一文を送り、完了状態と本文を読む</td>
-<td>入力・会話・結果が対応し、失敗を成功扱いしない</td>
+<td>Macだけで試す</td>
+<td>テスト用の新しい会話へ短い文章を送り、返事を読む</td>
+<td>入力と返事が同じ相談に対応しているか</td>
 </tr>
 <tr>
-<td>2. 状態の保持</td>
-<td>依頼ID、送信意図、会話先、結果を保存する</td>
-<td>通信応答が不明でも自動再送しない。再起動後に同じ依頼を読める</td>
+<td>眼鏡に文字を表示する</td>
+<td>短い決まった文章をMacから眼鏡へ返す</td>
+<td>実際の眼鏡で読めるか。登録した本人の眼鏡か</td>
 </tr>
 <tr>
-<td>3. 固定文字の眼鏡表示</td>
-<td>自作Agentと認証付き経路で固定文を往復する</td>
-<td>未登録・失効端末を拒否し、実画面で本文を読める</td>
+<td>声で往復する</td>
+<td>録音して話し、AIの返事を読む</td>
+<td>操作したときだけ録音するか。処理後に音声を消すか</td>
 </tr>
 <tr>
-<td>4. 実音声の往復</td>
-<td>操作で録音し、文字化して返事を表示する</td>
-<td>開いただけで録音しない。無音、終了、失敗時も一時音声を削除する</td>
+<td>普段の会話へつなぐ</td>
+<td>会話名を確認して、相談の続きを進める</td>
+<td>正しい会話へ元の依頼が届くか</td>
 </tr>
 <tr>
-<td>5. 会話先の提案</td>
-<td>現在・別・新規の会話をAIが提案する</td>
-<td>実会話名を表示し、元の発言を保持。訂正や不明な同意に対応する</td>
+<td>聞き返しや経過を見る</td>
+<td>AIの質問へ答え、途中経過と結果を読む</td>
+<td>古い質問や別の仕事と取り違えないか</td>
 </tr>
 <tr>
-<td>6. 既存Mac会話への接続</td>
-<td>自分のデスクトップ環境で続き先へ渡す</td>
-<td>対象・本文・送信回数・モデルが実会話と一致する</td>
+<td>資料を使う</td>
+<td>テスト資料を読み、確認後に文書を作る</td>
+<td>対象と内容を確認でき、保存結果も確かめられるか</td>
 </tr>
 <tr>
-<td>7. 進捗と聞き返し</td>
-<td>同じ依頼の途中経過、質問、結果を同期する</td>
-<td>同じ本文で点滅しない。古い表示への返答を新質問へ送らない</td>
-</tr>
-<tr>
-<td>8. 資料の読取と変更</td>
-<td>許可した資料・道具・スキルを使う</td>
-<td>テスト資料で対象と内容を示し、確認後に実行。実結果を読み戻す</td>
-</tr>
-<tr>
-<td>9. 復旧と終了</td>
-<td>通信断、Mac・眼鏡再起動、通常終了を扱う</td>
-<td>同じ依頼を二重実行せず、原音・一時音声・短命接続を残さない</td>
+<td>途切れたときに戻る</td>
+<td>通信断や再起動の後に、同じ依頼を確認する</td>
+<td>二重に実行せず、結果を取り戻せるか</td>
 </tr>
 </tbody></table>
-</div><p>模擬確認、Macでの確認、眼鏡の実音声・実表示の確認を分けて記録します。Macだけで成功したものを眼鏡の合格として扱わず、合格済みの操作を毎回繰り返す必要もありません。</p>
-<h2 id="codexとの接続を作るとき">Codexとの接続を作るとき</h2>
-<p>一般的な会話クライアントの出発点は、<a href="https://learn.chatgpt.com/docs/app-server">Codex App Serverの公式資料</a>です。初期化、会話の作成・再開、入力、イベントの読取、完了状態を扱う接続部を、自分の環境で確認します。</p>
-<p>個人用V2が利用する既存デスクトップ会話のキュー経路は、今回確認した公式ページの一般向け呼び出し仕様とは別です。利用しているアプリの機能・バージョンで調査し、適切な経路がなければ、まず独立したテスト会話に留めます。会話ファイルの直接編集、アカウント認証の抜き取り、無条件の権限拡張で接続を代用しません。</p>
-<p>この資料はAPIキーの購入や従量課金の利用を前提にしていません。選ぶ接続方法によって認証や課金条件が異なるため、自分のアカウントで確認してください。モデル名を固定でコピーせず、実際に利用できるモデルを選びます。</p>
-<h2 id="外出先からの通信">外出先からの通信</h2>
-<p>最初にMac内の動作を確認し、その後で自分用HTTPS名と限定した受付経路を用意します。Wi-Fiやスマートフォンのテザリングは眼鏡をインターネットへつなぐ手段であり、Mac受付の認証の代わりにはなりません。</p>
-<p>トンネルの管理用秘密と、眼鏡の登録情報と、会話ごとの短命な秘密を分けます。初回登録の本人確認、登録解除、期限切れ、未登録端末の拒否も確認します。秘密を生成済みAgentへ埋め込みません。</p>
-<h2 id="最初の再現目標">最初の再現目標</h2>
-<p>専用のテスト会話で「短い相談 → AIの聞き返し → 声で返答 → 最終回答」を1回通します。その後に既存のMac会話、資料の読み取り、確認後の変更へ広げます。途中で使えない接続・権限が見つかった場合は、止まった部品と条件を記録して設計を調整します。</p>
-<p><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様</a> · <a href="/rokid-personal-ai-v2/SAFETY.html">安全の設計</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
+</div><p>最初の文字の往復だけで、V2全体ができたことにはなりません。机上の確認、Macでの確認、眼鏡での音声と表示の確認を分けて記録します。</p>
+<h2 id="5-実際の利用へ広げる">5. 実際の利用へ広げる</h2>
+<p>テスト用資料で確認してから、使う資料や作業を少しずつ広げます。文書を保存・編集する場合は、対象と内容を確認し、実行後の結果も確かめます。</p>
+<p>AIやサービスの利用条件、アカウントの権限、必要な費用は、選ぶ方法によって異なります。新しい契約や有料サービスが必要な提案は、内容を理解してから判断します。AIに頼むだけで、実装や安全の確認が不要になるわけではありません。</p>
+<h2 id="開発を手伝う相手へ渡す資料">開発を手伝う相手へ渡す資料</h2>
+<p>一般の読者が技術名をすべて覚える必要はありません。開発を担当する相手には、次の資料も読んでもらってください。</p>
+<ul>
+<li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプト</a>：目指す利用体験と役割分担。</li>
+<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">詳しい仕様とデータ例</a>：必要な部品、接続の制約、データの扱い。</li>
+<li><a href="/rokid-personal-ai-v2/SAFETY.html">安心して使うための考え方</a>：録音、確認、通信の食い違いへの対策。</li>
+<li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a>：部品を調べるための公式資料。</li>
+</ul>
+<p>技術仕様は、コンセプトを保ちながら自分の環境へ合わせるための参考です。実際に動かしているプログラム一式や、完全なセットアップ手順は公開していません。</p>
+<p><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIに相談するための依頼文</a> · <a href="/rokid-personal-ai-v2/VALIDATION.html">確認した範囲と制約</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
 </article>
 <details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
 <li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">会話と操作の例</a></li>
-<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">システム構成</a></li>
-<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の関係</a></li>
-<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html" aria-current="page">再現の手引き</a></li>
-<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">要求仕様とデータ例</a></li>
-<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIと一緒に作るための開発依頼</a></li>
-<li><a href="/rokid-personal-ai-v2/SAFETY.html">認証・録音・実行確認の設計</a></li>
-<li><a href="/rokid-personal-ai-v2/VALIDATION.html">実機確認の範囲と制約</a></li>
+<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">仕組みをやさしく説明</a></li>
+<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の違い</a></li>
+<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html" aria-current="page">自分用に作るための進め方</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">詳しい仕様とデータ例</a></li>
+<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIに相談するための依頼文</a></li>
+<li><a href="/rokid-personal-ai-v2/SAFETY.html">安心して使うための考え方</a></li>
+<li><a href="/rokid-personal-ai-v2/VALIDATION.html">確かめたことと、まだできると言えないこと</a></li>
 <li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a></li></ul></nav></details>
 </main><footer>鈴木啓一 / Keiichi Suzuki · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/docs/BUILD_GUIDE.md">この文書の元ファイル</a> · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/LICENSE">MIT License</a></footer></body></html>

@@ -9,7 +9,7 @@ const docs = path.join(root, 'docs');
 const base = '/rokid-personal-ai-v2/';
 const github = 'https://github.com/ksuzukigh/rokid-personal-ai-v2';
 const pages = [
-  ['README.md', 'index.html', '私のAI V2'],
+  ['INTRODUCTION.md', 'index.html', '私のAI V2'],
   ['docs/CONCEPT.md', 'CONCEPT.html', 'コンセプトと設計の理由'],
   ['docs/EXPERIENCE.md', 'EXPERIENCE.html', '会話と操作の例'],
   ['docs/ARCHITECTURE.md', 'ARCHITECTURE.html', 'システム構成'],
@@ -23,6 +23,7 @@ const pages = [
   ['CHANGELOG.md', 'CHANGELOG.html', '変更履歴'],
 ];
 const outputs = new Map(pages.map(([source, output]) => [path.join(root, source), output]));
+outputs.set(path.join(root, 'README.md'), 'index.html');
 const escape = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function convertHref(href, source) {
   const readerOrigin = 'https://ksuzukigh.github.io' + base;

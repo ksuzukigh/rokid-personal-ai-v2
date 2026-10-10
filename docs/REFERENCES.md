@@ -39,6 +39,8 @@ APIは、プログラム同士が機能を呼び出すための窓口です。�
 
 ### 通信と文字起こしを扱う
 
+- [AIUIの通信方法](https://github.com/yodaos-project/AIUI/blob/main/documentation/0-guide/basic/network/usage.en-US.md)：眼鏡のWi-Fiが未接続でも、Bluetoothで接続したオンラインのスマホアプリ経由でインターネットを利用できる。スマホ経由の利用条件を確認する資料。
+
 - [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/)：外出先からMacへ通信を届ける経路。本人確認は別に必要。
 - [whisper.cpp](https://github.com/ggml-org/whisper.cpp)：音声を文字にするWhisperを、Mac内で動かすための実装例。
 - [Silero VAD](https://github.com/snakers4/silero-vad)：人の声がある区間を見つける仕組み。周囲の声の完全な分離や、同意の判断をするものではない。

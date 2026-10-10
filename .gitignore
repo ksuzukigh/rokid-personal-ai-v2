@@ -1,0 +1,12 @@
+.DS_Store
+*.local
+.env
+.env.*
+!*.example
+*.aix
+*.apk
+*.pcm
+*.wav
+*.mp3
+credentials/
+private/

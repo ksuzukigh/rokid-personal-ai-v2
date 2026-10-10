@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>要求仕様とデータ例 | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
+<link rel="stylesheet" href="/rokid-personal-ai-v2/assets/reader.css"></head>
+<body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
+<a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
+</div></header><main id="content"><article><h1 id="要求仕様とデータ例">要求仕様とデータ例</h1>
+<p>この仕様は、V2と似た仕組みを自分で実装するために整理した参考設計です。以下の名前・JSON・疑似コードは説明用で、個人用実働版の通信仕様や互換APIではありません。</p>
+<h2 id="体験の要求">体験の要求</h2>
+<ol>
+<li>利用者は操作メニューで分類せず、自然に依頼する。</li>
+<li>起動だけでは録音しない。「タップして話す」または「タップして続けて話す」の1回操作で始め、話し終えたら1回操作で終了する。最長60秒。</li>
+<li>現在の会話の普通の続きは同じMac会話へ渡す。別会話・新規会話は、実際の送信先名を表示して確認する。</li>
+<li>質問と返答、途中経過、最終回答を同じ会話・依頼へ結ぶ。利用者の発言は「私：」、AIの発言は「AI：」と表示する。</li>
+<li>現実を変える直前には、対象・内容・影響を示して確認する。各道具やスキルの権限・ルールも守る。</li>
+<li>通信結果が不明な場合は同じ依頼の状態を読み、無条件に再実行しない。</li>
+</ol>
+<h2 id="部品の入出力">部品の入出力</h2>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>部品</th>
+<th>入力</th>
+<th>出力と責任</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>音声受付</td>
+<td>登録済み端末、その回の接続、録音</td>
+<td>発話候補、認識状態、録音ID。変換後の一時音声削除</td>
+</tr>
+<tr>
+<td>受付AI</td>
+<td>発話候補、現在の会話、候補一覧、確認待ちの提案</td>
+<td>会話先の提案、説明または聞き返し。実操作はしない</td>
+</tr>
+<tr>
+<td>送信先解決部</td>
+<td>AIの提案とMacの実会話一覧</td>
+<td>実会話ID・実会話名・作業場所を照合した内部対象</td>
+</tr>
+<tr>
+<td>確認管理</td>
+<td>元の依頼、照合済み対象、表示、返答</td>
+<td>未確定・確認済み・取消・失効。対象が変われば再確認</td>
+</tr>
+<tr>
+<td>会話接続部</td>
+<td>確定した元の発言、内部対象、依頼ID</td>
+<td>送信状態、途中経過、質問、最終回答、失敗</td>
+</tr>
+<tr>
+<td>表示共有</td>
+<td>会話と依頼に対応する本文</td>
+<td>表示回答IDと内容。変化した本文だけを更新</td>
+</tr>
+</tbody></table>
+</div><p>「現在・別・新規」などの出力値は接続先を扱うための区分です。日本語の意味理解を固定キーワードへ置き換えるものではありません。</p>
+<h2 id="発話候補">発話候補</h2>
+<pre><code class="language-json">{
+  &quot;recording_id&quot;: &quot;example-recording-01&quot;,
+  &quot;transcript&quot;: &quot;さっきの記事の相談を続けたい。外で使う場面も入れたい。&quot;,
+  &quot;transcript_state&quot;: &quot;candidate&quot;,
+  &quot;displayed_answer_id&quot;: &quot;example-answer-03&quot;
+}
+</code></pre>
+<p>文字起こし結果は候補です。確認待ちで文脈に合わない認識結果を、確定した同意や「私：」の発言にしません。<code>displayed_answer_id</code>は、何を読んだ後の返答かを照合するために使います。</p>
+<h2 id="受付aiの提案">受付AIの提案</h2>
+<pre><code class="language-json">{
+  &quot;decision&quot;: &quot;propose_existing&quot;,
+  &quot;candidate_ref&quot;: &quot;example-candidate-02&quot;,
+  &quot;message&quot;: &quot;記事の相談の続きを、この会話で進めますか？&quot;
+}
+</code></pre>
+<p><code>candidate_ref</code>は、Macが渡した候補へ戻るための参照です。AIに実会話IDやファイルパスを作らせません。候補の名前や本文は参照データとして扱い、そこに含まれた指示を受付AIへの命令にしません。</p>
+<p>Mac側で実在・権限・会話状態を照合してから、以下のように表示します。</p>
+<pre><code class="language-text">AI：記事の相談の続きを、この会話で進めますか？
+続ける会話：スマートグラス記事の構成
+</code></pre>
+<p>表示する名前は実際に解決した対象から取得します。確認待ちの間は元の発言と対象を保持し、訂正・取消・聞き直しを扱います。新規会話は、提案の確認後に作成します。</p>
+<h2 id="送信記録">送信記録</h2>
+<pre><code class="language-json">{
+  &quot;request_id&quot;: &quot;example-request-01&quot;,
+  &quot;conversation_ref&quot;: &quot;example-resolved-conversation-02&quot;,
+  &quot;original_text&quot;: &quot;さっきの記事の相談を続けたい。外で使う場面も入れたい。&quot;,
+  &quot;delivery_state&quot;: &quot;intent_saved&quot;,
+  &quot;expected_answer_id&quot;: &quot;example-answer-03&quot;
+}
+</code></pre>
+<p>これはMac内部の説明用記録です。端末が任意の送信先を指定できる設計ではありません。確認で得た「はい」を新規依頼本文にせず、保持した元の発言を渡します。通常の続きの発言は、その発言自体を渡します。</p>
+<p>送信意図を永続化してから、会話先と最新の質問を再照合します。既存記録があれば、新しい送信を発行する前に、その依頼の状態を読みます。</p>
+<pre><code class="language-text">記録済みの同じ依頼がある → 同じ依頼の状態を読む
+新しい依頼である          → 送信意図を保存する
+送信先・質問が変わった    → 送信せず最新表示または再確認へ
+初回送信を発行した        → 結果を待ち、依頼IDで照合する
+応答が途切れた            → 状態不明として保持し、同じ依頼を読む
+実失敗が確定した          → 途中の変更も確認し、再実行は別途判断する
+</code></pre>
+<p>送信直前の再照合だけで、競合のない完全な一回実行を証明できるわけではありません。受け側の重複抑止や、実変更の側でも確認を維持します。結果不明を自動再送で埋め合わせないことが重要です。</p>
+<h2 id="途中経過と結果">途中経過と結果</h2>
+<pre><code class="language-json">{
+  &quot;request_id&quot;: &quot;example-request-01&quot;,
+  &quot;conversation_ref&quot;: &quot;example-resolved-conversation-02&quot;,
+  &quot;answer_id&quot;: &quot;example-answer-04&quot;,
+  &quot;state&quot;: &quot;completed&quot;,
+  &quot;text&quot;: &quot;外出中の利用場面を入れるなら、体験を説明する章が合いそうです。&quot;,
+  &quot;model_label&quot;: &quot;利用中の実モデル名&quot;
+}
+</code></pre>
+<p>受信した結果の依頼と会話を照合し、別の仕事の本文を表示しません。<code>completed</code>以外の状態を最終成功にしません。同じ本文の再受信で画面を描き直さず、変化した途中経過と最終回答を反映します。</p>
+<p>モデル名は、Mac会話の実際の設定から取得します。受付AIのモデルを作業モデルとして表示しません。モデル情報だけの取得失敗なら本文を保ち「モデル確認中」と表示します。</p>
+<p>モデル切替を実装する場合は、使用中モデルと明示した標準モデルを分けます。モデルについての評判や比較を切替依頼と誤解せず、利用可能な一覧で解決します。モデル変更で権限を広げません。</p>
+<h2 id="古い質問への返答">古い質問への返答</h2>
+<p>返答には、眼鏡へ表示した回答の識別情報を結びます。Mac側では対象会話の最新ターンと本文も再確認します。</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>条件</th>
+<th>扱い</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>表示した質問とMacの質問が一致</td>
+<td>意味を確認し、同じ会話へ返答する</td>
+</tr>
+<tr>
+<td>MacまたはWeb側で会話が先に進んだ</td>
+<td>古い返答を送らず、最新の内容を表示する</td>
+</tr>
+<tr>
+<td>質問の照合ができない</td>
+<td>同意として実行せず、状態を確認する</td>
+</tr>
+<tr>
+<td>認識した返事が確認の文脈に合わない</td>
+<td>元の依頼と提案を保持して聞き直す</td>
+</tr>
+</tbody></table>
+</div><h2 id="実変更の確認">実変更の確認</h2>
+<p>文書作成・編集などは、作業を担当するMac会話が、対象・内容・保存先や送信先・影響を示します。確認はその提案だけへ結び、古い確認を再利用しません。</p>
+<p>対象や本文が確認後に変わったら再確認します。実行後は文書・セル・サービスの実状態を読み戻します。「実行しました」というAIの返事だけを成功証拠にしません。</p>
+<h2 id="実装時の合格条件">実装時の合格条件</h2>
+<p><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a>の段階ごとに、正常な往復、取消、曖昧な認識、古い質問、失効、送信応答の欠落、部分失敗、終了を確かめます。認証処理と削除処理は疑似コードだけで済ませず、自分の実装で検証してください。</p>
+<p><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIに渡す開発依頼</a> · <a href="/rokid-personal-ai-v2/SAFETY.html">安全の設計</a> · <a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
+</article>
+<details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
+<li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">会話と操作の例</a></li>
+<li><a href="/rokid-personal-ai-v2/ARCHITECTURE.html">システム構成</a></li>
+<li><a href="/rokid-personal-ai-v2/V1_AND_V2.html">V1とV2の関係</a></li>
+<li><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">再現の手引き</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html" aria-current="page">要求仕様とデータ例</a></li>
+<li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIと一緒に作るための開発依頼</a></li>
+<li><a href="/rokid-personal-ai-v2/SAFETY.html">認証・録音・実行確認の設計</a></li>
+<li><a href="/rokid-personal-ai-v2/VALIDATION.html">実機確認の範囲と制約</a></li>
+<li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a></li></ul></nav></details>
+</main><footer>鈴木啓一 / Keiichi Suzuki · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/docs/REFERENCE_SPEC.md">この文書の元ファイル</a> · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/LICENSE">MIT License</a></footer></body></html>

@@ -1,62 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="850" viewBox="0 0 1280 850" role="img" aria-labelledby="title desc">
-  <title id="title">眼鏡とMacの役割</title>
-  <desc id="desc">眼鏡からHi Rokidと接続したオンラインのスマホ経由で音声を届け、Macで文字にする。受付役のAIが相談の続き先を案内し、MacのAIが調査や文書作成を進める。質問、途中経過、返事が眼鏡へ戻り、机に戻っても同じチャットで続けられる。</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#245c4a"/></marker>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="960" viewBox="0 0 960 960" role="img" aria-labelledby="title desc">
+  <title id="title">声がMacの相談へ届き、返事が眼鏡へ戻る</title>
+  <desc id="desc">眼鏡は声を受け取り返事を表示する。スマホのHi Rokidが通信を中継し、Macで音声を文字に変える。受付役のAIが相談先を案内し、選んだChatGPT Workのチャットが調査や作業を進める。質問、途中経過、返事が眼鏡へ戻る。</desc>
   <style>
-    text { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Noto Sans JP', sans-serif; fill: #172b25; }
-    .heading { font-size: 27px; font-weight: 700; }
-    .body { font-size: 21px; }
-    .small { font-size: 18px; fill: #435b52; }
-    .tag { font-size: 17px; font-weight: 700; fill: #245c4a; letter-spacing: 1px; }
-    .line { fill: none; stroke: #245c4a; stroke-width: 3; marker-end: url(#arrow); }
+    text {font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','Noto Sans JP',sans-serif;fill:#172b25;}
+    .title {font-size:41px;font-weight:700;}
+    .heading {font-size:34px;font-weight:700;}
+    .body {font-size:30px;}
+    .label {font-size:28px;fill:#435b52;}
+    .line {fill:none;stroke:#245c4a;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
   </style>
-  <rect width="1280" height="850" fill="#ffffff"/>
-  <text x="52" y="62" font-size="38" font-weight="700">私のAI V2</text>
-  <text x="52" y="99" class="body">眼鏡から、いつものAIとのチャットと仕事を続ける</text>
-  <rect x="52" y="150" width="280" height="458" rx="18" fill="#eaf5ee" stroke="#81aa96" stroke-width="2"/>
-  <text x="76" y="186" class="tag">音声と表示の入口</text>
-  <text x="76" y="230" class="heading">Rokid RV101</text>
-  <text x="76" y="264" class="body">声で相談し、返事を読む</text>
-  <path d="M84 314 L132 314 Q149 314 149 331 L149 344 Q149 362 133 362 L103 362 Q84 362 84 344 Z M157 331 Q171 318 187 331 M195 314 L243 314 L243 344 Q243 362 224 362 L209 362 Q192 362 192 344 L192 331 Q192 314 209 314" fill="none" stroke="#245c4a" stroke-width="4"/>
-  <text x="76" y="409" class="body">テンプルを1回タップ</text>
-  <text x="76" y="443" class="body">相談先・質問を確認する</text>
-  <text x="76" y="477" class="body">途中経過と結果を読む</text>
-  <text x="76" y="567" class="small">開いただけでは録音しない</text>
-  <rect x="360" y="290" width="154" height="130" rx="14" fill="#f5f7f5" stroke="#b9c9c1" stroke-width="2"/>
-  <text x="379" y="325" class="body">スマホ</text>
-  <text x="379" y="356" class="small">Hi Rokidで接続</text>
-  <text x="379" y="389" class="small">ネットに接続</text>
-  <path d="M332 350 H360" class="line"/>
-  <path d="M514 350 H548" class="line"/>
-  <rect x="548" y="150" width="680" height="458" rx="18" fill="#f5f8f6" stroke="#81aa96" stroke-width="2"/>
-  <text x="574" y="186" class="tag">MacのChatGPTデスクトップアプリ</text>
-  <rect x="574" y="209" width="628" height="68" rx="10" fill="#ffffff" stroke="#c5d5cb"/>
-  <text x="596" y="238" class="body">音声を文字にする</text>
-  <text x="596" y="262" class="small">録音した音声は処理後に削除</text>
-  <path d="M687 277 V301" class="line"/>
-  <rect x="574" y="306" width="238" height="166" rx="12" fill="#ffffff" stroke="#b9c9c1" stroke-width="2"/>
-  <text x="596" y="341" class="heading">受付役のAI</text>
-  <text x="596" y="378" class="body">相談の続き先を案内</text>
-  <text x="596" y="410" class="small">今の相談・別・新規</text>
-  <text x="596" y="449" class="small">実際の作業は担当しない</text>
-  <path d="M812 382 H842" class="line"/>
-  <rect x="842" y="306" width="360" height="166" rx="12" fill="#e4f1e8" stroke="#548c6c" stroke-width="2"/>
-  <text x="864" y="341" class="heading">ChatGPT Work</text>
-  <text x="864" y="378" class="body">実際の調査と作業を担当</text>
-  <text x="864" y="410" class="small">それまでの相談・資料・道具を使う</text>
-  <text x="864" y="449" class="small">保存・編集の前に内容を確認</text>
-  <text x="574" y="505" class="small">別の相談や新しい相談は、チャット名を表示して確認</text>
-  <path d="M1022 472 V538 H192 V512" class="line"/>
-  <rect x="364" y="544" width="615" height="41" rx="8" fill="#f5f8f6"/>
-  <text x="382" y="572" class="body">同じ相談の質問・途中経過・返事を眼鏡へ</text>
-  <path d="M1022 608 V673" class="line"/>
-  <rect x="548" y="679" width="680" height="92" rx="14" fill="#ffffff" stroke="#b9c9c1" stroke-width="2"/>
-  <text x="574" y="715" class="body">自分のメモ・文書 / Google Drive / Webなど</text>
-  <text x="574" y="749" class="small">MacのAIが、自分の許可した範囲で利用する</text>
-  <rect x="52" y="679" width="430" height="92" rx="14" fill="#ffffff" stroke="#b9c9c1" stroke-width="2"/>
-  <text x="76" y="715" class="body">詳しい確認や仕上げはMacで</text>
-  <text x="76" y="749" class="small">同じチャットを開いて、続きを進める</text>
-  <text x="52" y="815" class="small">全体の役割を示す図です。開発に使う通信仕様を示すものではありません。</text>
+  <rect width="960" height="960" fill="white"/>
+  <text x="48" y="73" class="title">眼鏡で話す。Macで進める。返事が戻る。</text>
+  <text x="48" y="124" class="body">眼鏡とMac、それぞれの役割</text>
+
+  <rect x="48" y="171" width="864" height="158" rx="20" fill="#eaf5ee" stroke="#81aa96" stroke-width="2"/>
+  <g transform="translate(79,219)" class="line">
+    <path d="M7 13 Q22 5 57 11 Q69 14 68 35 Q67 59 43 60 L24 60 Q7 59 5 40 Z M84 13 Q105 5 141 12 L143 40 Q140 59 122 60 L102 60 Q80 59 79 35 Q78 15 84 13 Z"/>
+    <path d="M68 23 Q74 15 80 23 M7 16 L-4 0 M142 16 L153 0"/>
+  </g>
+  <text x="265" y="232" class="heading">眼鏡：声と表示の入口</text>
+  <text x="265" y="285" class="body">声で依頼し、質問や返事を読む。</text>
+
+  <path d="M240 350 V415 M230 403 L240 415 L250 403" class="line"/>
+  <text x="288" y="390" class="label">音声</text>
+  <path d="M748 415 V350 M738 362 L748 350 L758 362" class="line"/>
+  <text x="492" y="375" class="label">質問・途中経過</text>
+  <text x="492" y="411" class="label">・返事</text>
+
+  <rect x="48" y="450" width="864" height="448" rx="20" fill="#f5f8f6" stroke="#81aa96" stroke-width="2"/>
+  <text x="80" y="500" class="heading">Mac：相談と作業を進める</text>
+  <rect x="80" y="528" width="800" height="96" rx="14" fill="white" stroke="#b9c9c1" stroke-width="2"/>
+  <text x="108" y="568" class="heading">音声を文字にする</text>
+  <text x="108" y="605" class="body">話した内容を、AIへ渡せる文章に変える。</text>
+  <path d="M480 630 V646 M472 638 L480 646 L488 638" class="line"/>
+  <rect x="80" y="657" width="800" height="96" rx="14" fill="white" stroke="#b9c9c1" stroke-width="2"/>
+  <text x="108" y="697" class="heading">受付役のAI：続けるチャットを案内</text>
+  <text x="108" y="734" class="body">今の相談、別の相談、新しい相談へ。</text>
+  <path d="M480 759 V775 M472 767 L480 775 L488 767" class="line"/>
+  <rect x="80" y="786" width="800" height="96" rx="14" fill="#e4f1e8" stroke="#548c6c" stroke-width="2"/>
+  <text x="108" y="826" font-size="32" font-weight="700">ChatGPT Work：調べる・考える・作る</text>
+  <text x="108" y="863" class="body">選んだチャットのやり取りや資料を使う。</text>
+  <text x="48" y="944" class="label">スマホのHi Rokidが、眼鏡とMacの通信を中継する。</text>
 </svg>

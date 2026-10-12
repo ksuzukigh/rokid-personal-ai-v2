@@ -1,12 +1,14 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>確かめたことと、まだできると言えないこと | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
+<title>確認できたこと・利用上の制約・未確認のこと | 私のAI V2</title><meta name="description" content="私のAI V2のコンセプト・設計・再現手引き。鈴木啓一の個人開発プロジェクト。">
 <link rel="stylesheet" href="/rokid-personal-ai-v2/assets/reader.css"></head>
 <body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
 <a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
-</div></header><main id="content"><article><h1 id="確かめたこととまだできると言えないこと">確かめたことと、まだできると言えないこと</h1>
+</div></header><main id="content"><article><h1 id="確認できたこと利用上の制約未確認のこと">確認できたこと・利用上の制約・未確認のこと</h1>
 <p>作者のRokid AI Glasses RV101と、ChatGPTデスクトップアプリのChatGPT Workを使うMac環境で、2026年9月26日までに確かめた内容を紹介します。公開資料の初版は2026年10月10日です。</p>
 <p><strong>作者の個人環境で使えたことと、ほかの人が同じように作って使えることは、分けて考えています。</strong> このページには完成したアプリは含まれず、別の人の環境での再現はまだ確認していません。</p>
+<p><img src="/rokid-personal-ai-v2/images/verified-scope.png" alt="作者のRV101とMac環境で確認した相談継続、調査と資料作成、確認後の文書変更と、未確認の他環境や機器、「私のAI」終了中の眼鏡への通知、全種類の操作を分けた図。完成アプリやインストーラーは未配布" loading="lazy"></p>
+<p>図は以下の確認記録の要約です。確認した場面を、ほかの環境やすべての操作へ広げて保証するものではありません。</p>
 <h2 id="実際に確かめたこと">実際に確かめたこと</h2>
 <div class="table-scroll" tabindex="0"><table>
 <thead>
@@ -37,7 +39,7 @@
 </tr>
 <tr>
 <td>メモや文書を扱う</td>
-<td>Obsidianの読み取り、新規文書、追記、編集を確認後に行い、実際の本文を確かめた</td>
+<td>Obsidianでの文書の読み取り、新規文書の作成、既存文書への追記・編集を、確認後に行い、実際の本文を確かめた</td>
 </tr>
 <tr>
 <td>Googleの文書や表を扱う</td>
@@ -64,12 +66,12 @@
 <td>原音と一時音声が残らず、その回の接続が終わったことを確かめた</td>
 </tr>
 </tbody></table>
-</div><p>眼鏡を開いたまま、Mac側で追加された新しい質問が眼鏡にも表示されたことを作者本人が確認しています。ただし、閉じた眼鏡へ通知が届くことは確認していません。</p>
+</div><p>眼鏡で「私のAI」を開いたままにすると、Mac側で追加された新しい質問が眼鏡にも表示されることを、作者本人が確認しています。ただし、「私のAI」を終了した状態で眼鏡に通知が届くことは確認していません。</p>
 <p>ここに示した場面を、すべての作業や通信条件に広げて保証するものではありません。どの資料やAIを使えるかも、作者のアカウントと設定によります。</p>
 <h2 id="利用するときの制約">利用するときの制約</h2>
 <ul>
 <li>Macが起動してログインしており、受付と通信が動いている必要があります。</li>
-<li>スマホ経由で使う場合は、スマホのインターネット接続と、Hi Rokidが眼鏡と接続して通信できる状態が必要です。</li>
+<li>スマホ経由で使う場合は、スマホがインターネットにつながり、Hi Rokidアプリが起動して、眼鏡と接続・通信できる状態が必要です。</li>
 <li>長い文書や複雑な確認には、Macなどの大きな画面も使います。</li>
 <li>音声認識には聞き違いがあります。周囲の声を完全に取り除けるわけではありません。</li>
 <li>AIやGoogle Driveなどの利用範囲は、自分のアカウントと許可した範囲に依存します。</li>
@@ -80,7 +82,7 @@
 <li>ほかの人が最初から作って使うこと、別のアカウントで同じ接続ができること。</li>
 <li>RV101以外の眼鏡、WindowsやLinux、作者と異なるMac構成での同じ動作。</li>
 <li>送信、公開、共有、削除、購入、予定登録など、あらゆる種類の操作。</li>
-<li>閉じた眼鏡や腕時計への通知・操作。</li>
+<li>「私のAI」を終了した状態での眼鏡への通知や、腕時計への通知・操作。</li>
 <li>すべての通信断や、同時に別の場所から入力する場合の組合せ。</li>
 <li>長期間の互換性、電池への影響、端末からの認証情報の抜き取りに対する強さ。</li>
 </ul>
@@ -115,6 +117,6 @@
 <li><a href="/rokid-personal-ai-v2/REFERENCE_SPEC.html">詳しい仕様とデータ例</a></li>
 <li><a href="/rokid-personal-ai-v2/AI_BUILD_PROMPT.html">AIに相談するための依頼文</a></li>
 <li><a href="/rokid-personal-ai-v2/SAFETY.html">安心して使うための考え方</a></li>
-<li><a href="/rokid-personal-ai-v2/VALIDATION.html" aria-current="page">確かめたことと、まだできると言えないこと</a></li>
+<li><a href="/rokid-personal-ai-v2/VALIDATION.html" aria-current="page">確認できたこと・利用上の制約・未確認のこと</a></li>
 <li><a href="/rokid-personal-ai-v2/REFERENCES.html">参照資料</a></li></ul></nav></details>
 </main><footer>鈴木啓一 / Keiichi Suzuki · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/docs/VALIDATION.md">この文書の元ファイル</a> · <a href="https://github.com/ksuzukigh/rokid-personal-ai-v2/blob/main/LICENSE">MIT License</a></footer></body></html>

@@ -18,7 +18,7 @@ const pages = [
   ['docs/REFERENCE_SPEC.md', 'REFERENCE_SPEC.html', '詳しい仕様とデータ例'],
   ['docs/AI_BUILD_PROMPT.md', 'AI_BUILD_PROMPT.html', 'AIに相談するための依頼文'],
   ['docs/SAFETY.md', 'SAFETY.html', '安心して使うための考え方'],
-  ['docs/VALIDATION.md', 'VALIDATION.html', '確かめたことと、まだできると言えないこと'],
+  ['docs/VALIDATION.md', 'VALIDATION.html', '確認できたこと・利用上の制約・未確認のこと'],
   ['docs/REFERENCES.md', 'REFERENCES.html', '参照資料'],
   ['CHANGELOG.md', 'CHANGELOG.html', '変更履歴'],
 ];

@@ -5,7 +5,7 @@
 <body><a class="skip" href="#content">本文へ</a><header><div class="header-inner">
 <a class="brand" href="/rokid-personal-ai-v2/">私のAI V2</a><nav aria-label="共通"><a href="/rokid-personal-ai-v2/">トップ</a><a href="https://github.com/ksuzukigh/rokid-personal-ai-v2">GitHub</a></nav>
 </div></header><main id="content"><article><h1 id="参照資料">参照資料</h1>
-<p>「私のAI」の考え方を理解するために、以下の技術資料を全部読む必要はありません。似た仕組みを作るときに、開発を手伝うAIや技術に詳しい人が部品の機能を確かめるための資料です。</p>
+<p>似た仕組みを作る際に、部品の機能や利用条件を確かめるための資料です。</p>
 <p>参照先は2026年10月10日に確認しました。製品や開発環境は変わるため、実装時には最新の資料と自分の環境を確認してください。</p>
 <h2 id="chatgpt-workやプロジェクトを知りたい方へ">ChatGPT Workやプロジェクトを知りたい方へ</h2>
 <ul>
@@ -15,9 +15,6 @@
 <p>この資料では、一続きのやり取りを「チャット」と呼びます。「スレッド」も、そのやり取りのまとまりを指す呼び方として説明しています。作者が利用するのは、MacのChatGPTデスクトップアプリにあるChatGPT Workです。</p>
 <h2 id="v1を知りたい方へ">V1を知りたい方へ</h2>
 <p><a href="https://github.com/ksuzukigh/rokid-personal-ai">私のAI V1の参考公開</a>では、最初の仕組みと参考コードを残しています。V1の操作手順や制限は当時のもので、V2の現在の使い方とは区別してください。</p>
-<details>
-<summary>開発を担当する方へ：部品の公式資料を開く</summary>
-
 <h3 id="眼鏡の録音表示保存を扱う">眼鏡の録音・表示・保存を扱う</h3>
 <p>RokidのRV101では、YodaOSという眼鏡のOS上で、AIUI Agentという仕組みを使っています。Agentは、このプロジェクトでは眼鏡の録音や表示を担当する部分です。</p>
 <ul>
@@ -27,7 +24,7 @@
 </ul>
 <p>APIは、プログラム同士が機能を呼び出すための窓口です。公開資料に機能があっても、自作Agentで録音・表示・終了まで動くかは、RV101で確かめます。</p>
 <h3 id="chatgpt-workのチャットへつなぐ実装を調べる">ChatGPT Workのチャットへつなぐ実装を調べる</h3>
-<p>以下のCodexという名称は、内部の接続部について参照する公式資料の名前です。利用者が普段開くアプリと作業画面は、ChatGPTデスクトップアプリとChatGPT Workとして説明します。</p>
+<p>Codex App Serverは、プログラムからチャットへつなぐ接続部です。</p>
 <ul>
 <li><a href="https://learn.chatgpt.com/docs/app-server">Codex App Server</a>：チャットを作成・再開し、入力を送り、進捗や結果を受け取る仕組み。</li>
 <li><a href="https://developers.openai.com/blog/codex-as-a-platform">Codexをプラットフォームとして使う考え方</a>：プログラムからCodexを利用する方法と、その役割。</li>
@@ -44,10 +41,8 @@
 <li><p><a href="https://github.com/snakers4/silero-vad">Silero VAD</a>：人の声がある区間を見つける仕組み。周囲の声の完全な分離や、同意の判断をするものではない。</p>
 </li>
 </ul>
-</details>
-
-<p>公式資料へのリンクは、部品を調べるためのものです。各社によるこの個人プロジェクトの公式承認や、完成した製品の提供を示すものではありません。</p>
 <p><a href="/rokid-personal-ai-v2/index.html">トップへ</a></p>
+<p><a href="/rokid-personal-ai-v2/BUILD_GUIDE.html">自分用に作るための進め方</a></p>
 </article>
 <details class="pages"><summary>他の資料を読む</summary><nav aria-label="資料一覧"><ul><li><a href="/rokid-personal-ai-v2/CONCEPT.html">コンセプトと設計の理由</a></li>
 <li><a href="/rokid-personal-ai-v2/EXPERIENCE.html">チャットとタップの例</a></li>
